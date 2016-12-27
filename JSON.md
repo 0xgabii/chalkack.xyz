@@ -83,11 +83,45 @@
   }
 }
 ```
+## /albums
+``` json
+[  
+  {  
+    "src":"album-cover-image-src",
+    "album":{  
+      "date":"2016년 12월 27일",
+      "idx":628,
+      "title":"React",
+      "info":0
+    },
+    "idx":628
+  },
+  {  
+    "src":"album-cover-image-src",
+    "album":{  
+      "date":"2016년 12월 20일",
+      "idx":4,
+      "title":"은석님의 갤러리",
+      "info":16
+    },
+    "idx":4
+  }
+]
+```
 
-## /albums/{idx} - 사진 2개
+
+## /albums/{idx}
 ``` json
 {
   "data":[
+    {
+      "list":[
+        {
+          "src":"image-src",
+          "idx":133
+        }
+      ]
+    },
     {
       "list":[
         {
@@ -113,4 +147,18 @@
     "info":2
   }
 }
+```
+
+## /photos 
+``` json
+[  
+  {  
+    "src":"image-src",
+    "idx":628
+  },
+  {  
+    "src":"image-src",
+    "idx":628
+  }
+]
 ```
