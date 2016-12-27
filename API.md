@@ -74,7 +74,7 @@ ex) return new ResponseEntity<List>(jsonlist, HttpStatus.OK);
 | album | {"a_cover":"image-src","title":"HOME",} | Map | 현재 위치의 정보  |
 
 #### Data Example
-[여기]('JSON.md')의 **/home**에서 볼 수 있습니다
+[여기](JSON.md)의 **/home**에서 볼 수 있습니다
 
 
 ## 4. 앨범 목록
@@ -141,7 +141,7 @@ ex) return new ResponseEntity<List>(jsonlist, HttpStatus.OK);
 | album | {"a_cover":"image-src","title":"HOME",} | Map | 현재 위치의 정보  |
 
 #### Data Example
-[여기]('JSON.md')의 **/albums/{idx}**에서 볼 수 있습니다
+[여기](JSON.md)의 **/albums/{idx}**에서 볼 수 있습니다
 
 ## 6. 앨범 생성 
 
@@ -228,7 +228,7 @@ ex) return new ResponseEntity<List>(jsonlist, HttpStatus.OK);
 | src | "aws-s3-bucket/medium-image-src" | String | 원본에서 리사이징된 사진의 url |
 
 #### Data Example
-[여기]('JSON.md')의 **/photos**에서 볼 수 있습니다
+[여기](JSON.md)의 **/photos**에서 볼 수 있습니다
 
 ## 10. 사진 추가
 ### 10.1 요청
@@ -334,7 +334,7 @@ ex) return new ResponseEntity<List>(jsonlist, HttpStatus.OK);
 | src | "aws-s3-bucket/small-image-src" | String | 원본에서 리사이징된 사진의 url |
 
 #### Data Example
-[여기]('JSON.md')의 **/photos**와 같습니다.
+[여기](JSON.md)의 **/photos**와 같습니다.
 
 ## 14. 삭제된 파일 복원
 ### 14.1 요청
