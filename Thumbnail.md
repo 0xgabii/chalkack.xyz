@@ -127,7 +127,7 @@ public class S3Util_Thumbs {
 			ImageIO.write(image, "png", os);
             
             //byte[]로 변환
-  		  byte[] bytes = os.toByteArray();
+  		    byte[] bytes = os.toByteArray();
             
             //metadata 설정 
 			ObjectMetadata objectMetadata = new ObjectMetadata();
