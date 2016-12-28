@@ -51,7 +51,7 @@ pom.xml에 dependency를 추가
 @RequestMapping(value = "/photos", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<?> multiUpload(MultipartHttpServletRequest multi,HttpServletResponse response) throws IOException {
-		// 넘어온 파일을 리스트로 저장
+
 		List<MultipartFile> mf = multi.getFiles("photo");		
 		if {    
         		....                
