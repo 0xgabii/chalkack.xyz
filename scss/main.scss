@@ -1,0 +1,44 @@
+@charset "UTF-8";
+@import url(https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/stylesheets/NotoSansKR-Hestia.css);
+
+body {
+	font-family: 'Noto Sans Korean', 'Open Sans', Helvetica, Arial, sans-serif;
+	color: white;
+	font-weight: 300;
+	overflow: hidden; 
+}
+
+@mixin prefix($declarations, $prefixes: ()) {
+  @each $property, $value in $declarations {
+    @each $prefix in $prefixes {
+      #{'-' + $prefix + '-' + $property}: $value;
+    }
+    #{$property}: $value;
+  }
+}
+
+%absolute-center{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
+%reset-ul{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+$moderndark:#323232;
+
+//랜딩 페이지
+@import "landing-page/index";
+
+//로그인 후 페이지
+@import "main-page/index";
+
+//토스트 메세지
+@import "toast";
+
+//input, button 등 전역 스타일
+@import "component";

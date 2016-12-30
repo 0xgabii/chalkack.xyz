@@ -15,17 +15,17 @@ class Header extends Component{
 		return (
 		  <header id="header">
 			<nav>
-			  <ul>
+			  <ul className="header-info-nav">
 				{this.props.type!="main"
-					? <li><button className="back_album" onClick={this.props.goToHome}><i className="material-icons">arrow_back</i></button></li>
+					? <li className="goBack"><button onClick={this.props.goToHome}><i className="material-icons">arrow_back</i></button></li>
 					: ""
 				}						
 				{this.props.type=="main"
-					? <li><span className="header_info">{this.props.title}</span><small>{this.props.albums}개의 앨범, {this.props.photos}개의 사진</small></li>   
-					: <li><span className="header_info">{this.props.title}</span><small>{this.props.photos}개의 사진</small></li>
+					? <li><span className="header-info-headline">{this.props.title}</span><small>{this.props.albums}개의 앨범, {this.props.photos}개의 사진</small></li>   
+					: <li><span className="header-info-headline">{this.props.title}</span><small>{this.props.photos}개의 사진</small></li>
 				}
 			  </ul>
-			  <ul>
+			  <ul className="header-controls-nav">
 				<li>
 				  <div className="switch">
 					<input name="switch" id="grid_double" type="radio" />

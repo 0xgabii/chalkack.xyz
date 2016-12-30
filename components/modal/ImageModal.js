@@ -68,7 +68,7 @@ class ImageModal extends Component{
 				<img src={src} onClick={this.props.close} />
 				<a id="download_image" href={src} download={src}></a>
 			</div>
-			<div className="down_fixed_tap">
+			<div className="down_fixed_tab">
 			  <ul>
 				<li>
 				  <button className="image_prev" onClick={this.props.prev}><i className="material-icons">arrow_back</i></button>

@@ -1,0 +1,193 @@
+.modal {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	z-index: -1;
+	background-color: rgba(0, 0, 0, 0.7);
+	&.active {
+		opacity: 1;
+		z-index: 1;
+	}
+}
+
+.modal-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	padding: 0 1.5rem 1.5rem 1.5rem;
+	min-width: 20rem;
+	background-color: #fefefe;
+	color: $moderndark;
+	border-radius: 0.3rem;
+	box-shadow: 0 3px 10px rgba(0, 0, 0, .35);
+	@include prefix((
+		transform: translate(-50%, -50%) scale(0.5),
+		transition: all 0.25s
+	),webkit);	
+	&.active {
+		@include prefix((transform: translate(-50%, -50%) scale(1)),webkit);
+	}
+	p {
+		display: inline-block;
+		margin: 0.4rem 0 0.8rem 0;
+		font-weight: 400;
+	}
+}
+
+.modal-scroll-content {
+	min-height: 10rem;
+	max-height: 25rem;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.modal-scroll-content-album {
+	position: relative;
+	margin: 0.5rem 0;
+	padding: 0.6rem;
+	width: 22rem;
+	background-size: cover;
+	background-repeat: no-repeat;
+	color: white;
+	border-radius: 0.3rem;
+	font-size: 0.9rem;
+	box-sizing: border-box;
+	cursor: pointer;
+	z-index: 1;
+	overflow: hidden;
+	&:before {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		top: 0;
+		z-index: -1;
+		border-radius: 0.3rem;
+		background-color: rgba(1, 1, 1, 0.5);
+	}
+	>.title {
+		padding-bottom: 0.3rem;
+		overflow: hidden;
+		font-size: 1.4rem;
+		display: block;
+	}
+	>.date {
+		float: left;
+	}
+	>.info {
+		float: right;
+		> i {
+			vertical-align: bottom;
+			font-size: 0.9rem;
+			margin-right: 0.2rem;
+		}
+	}
+}
+
+.modal-scroll-content>div:hover .move_photo_hover_div {
+	opacity: 1;
+}
+
+.move_photo_hover_div {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	opacity: 0;
+	>button {
+		@extend %absolute-center;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(1, 1, 1, 0.5);
+		color: white;
+		font-size: 1.5rem;
+		z-index: 1;
+		@include prefix((transform: translate(-50%, -50%)),webkit);
+	}
+}
+
+.modal-close {
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding: 1rem;
+	cursor: pointer;
+	>i {
+		position: relative;
+		z-index: -1;
+		font-weight: 800;
+		color: gray;
+	}
+}
+
+.modal-header {
+	font-size: 1.8rem;
+	font-weight: 300;
+	margin-bottom: 1rem;
+}
+
+.modal-header>img {
+	margin-right: 0.5rem;
+	height: 4rem;
+	width: 6.5rem;	
+	border-radius: 0.2rem;
+	vertical-align: -60%;
+	@include prefix((
+		object-position: center,
+		object-fit: cover
+	),webkit);
+}
+
+.modal-footer {	
+	margin-top: 0.7rem;
+	@include prefix((
+		display: flex,
+		align-items: center
+	),webkit);
+	>a {
+		padding: 0 0.5rem;
+		color: gray;
+		flex: 1.5;
+	}
+	>button {
+		flex: 2.5;
+	}
+}
+
+$red: #dd3939;
+$blue:#486dd1;
+
+.modal-footer_button {
+	text-align: center;
+	%btn {
+		width: 6.5rem;
+		padding: 0.45rem 0;
+		@include prefix((transition: all 0.3s),webkit);
+	}
+	>.btn:nth-of-type(1) {
+		@extend %btn;
+		margin-right: 0.3rem;
+		background-color: transparent;
+		border: 2px solid $red;
+		color: $red;
+		&:hover {
+			background-color: $red;
+			color: white;
+		}
+	}
+	>.btn:nth-of-type(2) {
+		@extend %btn;
+		background-color: $blue;
+		border: 2px solid $blue;
+		color: white;
+		&:hover {
+			background-color: transparent;
+			color: $blue;
+		}
+	}
+}

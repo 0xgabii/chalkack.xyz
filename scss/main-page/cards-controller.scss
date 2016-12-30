@@ -1,0 +1,153 @@
+//모든 버튼이 담긴 컨테이너
+.cards_control_conntainer {
+	position: fixed;
+	top: 1%;
+	left: 1%;	
+	opacity: 0;
+	z-index: -1;
+	white-space: nowrap;
+	align-items: center;
+	@include prefix((
+		display: flex,
+		transition: none,
+		align-items: center
+	),webkit);
+	&.automove {
+		@include prefix((transition: all 0.3s ease-out),webkit);
+	}
+	&.active {
+		opacity: 1;
+		z-index: 1;
+	}
+}
+
+#control_cards_btn {
+	position: relative;
+	top: 0;
+	left: 0;
+	font-size: 1.5rem;
+	@include prefix((
+		transform: scale(0),
+		transition: all 0.3s
+	),webkit);
+	//선택된 카드 갯수 css
+	&:after {
+		content: attr(data-number);
+		position: absolute;
+		right: -0.15rem;
+		top: -0.15rem;
+		width: 1.7rem;
+		height: 1.7rem;
+		background-color: #9300ff;
+		font-size: 1rem;
+		line-height: 25px;
+		text-align: center;
+		border-radius: 100%;
+		z-index: 104;
+		@include prefix((
+			transform: scale(1),
+			transition: transform 0.3s
+		),webkit);
+	}
+	&.active {
+		@include prefix((
+			transform: scale(1),
+			transition: transform 0.3s
+		),webkit);
+	}
+	&.tiktok {
+		@include prefix((
+			transform: scale(2) !important,
+			transition: transform 0.3s
+		),webkit);
+	}
+	&.toktok:after {
+		@include prefix((
+			transform: scale(2) !important,
+			transition: transform 0.3s
+		),webkit);
+	}
+}
+
+//버튼의 X 아이콘
+.custom_icon {
+	position: absolute;
+	z-index: -1;
+	background: #fff;
+	height: 2px;
+	width: 22px;
+	left: 50%;
+	top: 50%;
+	@include prefix((
+		transform: translate(-50%, -50%) rotateZ(0),
+		transition: transform 0.3s
+	),webkit);
+	&:after {
+		content: '';
+		position: absolute;
+		left: 50%;
+		top: -10px;
+		height: 22px;
+		width: 2px;
+		background: #fff;
+		@include prefix((transform: translateX(-50%)),webkit);
+	}
+	&.rotate {
+		@include prefix((
+			transform: translate(-50%, -50%) rotateZ(45deg),
+			transition: transform 0.3s
+		),webkit);
+	}
+}
+
+//숨겨진 버튼 리스트
+.control_btn_list {
+	position: relative;
+	margin-left: 0.3rem;
+	>button {
+		position: relative;
+		margin-left: 0.3rem;
+		width: 55px;
+		height: 55px;
+		color: #fff;
+		text-align: center;
+		opacity: 0;
+		border: 0;
+		border-radius: 100%;
+		cursor: pointer;		
+		box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+		@include prefix((transform: translateX(-125%) scale(0.7)),webkit);
+		>i {
+			@extend %absolute-center;
+			@include prefix((transform: translate(-50%, -50%)),webkit);
+		}
+	}
+	&.active>button {
+		opacity: 1;
+		@include prefix((transform: translateX(0) scale(1)),webkit);
+	}
+}
+
+// z-index : 순차적으로 나올 때 앞이 아닌 뒤에서 나와야하기 때문에 내림차순으로
+.control_btn_list>button {
+	&:nth-of-type(1) {
+		z-index: 104;
+		background-color: #03A9F4;
+		@include prefix((transition: all 0.2s),webkit);
+	}
+	&:nth-of-type(2) {
+		z-index: 103;
+		background-color: #FF9800;
+		@include prefix((transition: all 0.2s 0.2s),webkit);
+	}
+	&:nth-of-type(3) {
+		z-index: 102;
+		background-color: #8BC34A;
+		@include prefix((transition: all 0.2s 0.4s),webkit);
+	}
+	&:nth-of-type(4) {
+		z-index: 101;
+		background-color: #673AB7;
+		@include prefix((transition: all 0.2s 0.6s),webkit);
+	}
+}

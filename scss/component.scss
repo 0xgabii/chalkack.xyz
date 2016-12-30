@@ -1,0 +1,187 @@
+// 커스텀 스크롤 : webkit 브라우저만 가능 
+.scroll_y::-webkit-scrollbar {
+	width: 4px;
+	border: 10px solid transparent;
+	border-radius: 1rem;
+}
+
+.scroll_y::-webkit-scrollbar * {
+	background: transparent;
+}
+
+.scroll_y::-webkit-scrollbar-thumb {
+	background: #171717;
+	border-radius: 1rem;
+}
+
+.scroll_x::-webkit-scrollbar {
+	height: 4px;
+	border: 10px solid #000000;
+	border-radius: 1rem;
+}
+
+.scroll_x::-webkit-scrollbar * {
+	background: transparent;
+}
+
+.scroll_x::-webkit-scrollbar-thumb {
+	background: #5e74af;
+	border-radius: 1rem;
+}
+
+//input text
+.modern {
+	width: 100%;
+	padding: 0.65rem 1rem;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #777777;
+	border-radius: 0.3rem;
+	@include prefix((box-sizing: border-box),webkit);
+	&:hover{
+		border: 1px solid $moderndark;
+	}
+	&:focus{
+		border: 1px solid $moderndark;
+	}
+}
+
+.btn {
+	padding: 0.3rem 0.8rem;
+	cursor: pointer;
+	text-align: center;
+	white-space: nowrap;
+	border: 0 none;
+	border-radius: 0.3rem;
+	&.black{
+		background-color: $moderndark;
+		color: white;
+		padding: 0.7rem 1.6rem;
+		&:hover{
+			background-color : lighten($moderndark, 10%);
+		}
+	}
+}
+
+.material_btn {
+    position: fixed;
+	width: 65px;
+    height: 65px;
+    border: 0;
+    font-size: 1.2rem;
+    z-index: 1000;    
+    color: #fff;
+    text-align: center;    
+    border-radius: 100%;
+    cursor: pointer;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+	@include prefix((transition: all 0.3s),webkit);
+}
+
+.material_btn.pink {
+    background: #E91E63;
+}
+
+//사진 체크박스
+.checkbox {
+	position: absolute;
+	opacity: 0;	
+	top: 0;
+	right: 0;
+	z-index: 101;
+	padding: 0.67rem;
+	@include prefix((
+		transform: scale(0),
+		transition: all 0.3s
+	),webkit);	
+	&.active {
+		opacity: 1;
+		@include prefix((transform: scale(1)),webkit);
+		label:before {
+			border: 1px solid transparent;
+			background-color: transparent;
+		}
+	}
+}
+
+//input checkbox
+.custom_checkbox {
+	position: absolute;
+	left: -9999px;
+	& + label {
+		position: relative;
+		padding-left: 18px;
+		cursor: pointer;
+		&:hover:before {
+			border: 1px solid #3267d1!important;
+		}
+		&:before {
+			content: '';
+			position: absolute;
+			left: 0;
+			width: 17px;
+			height: 17px;
+			background-color: white;
+			border: 1px solid $moderndark;
+		}
+		&:after {
+			content: '\2713';
+			position: absolute;
+			top: 3px;
+			left: 4px;
+			color: white;
+			font-size: 1.2rem;
+			line-height: 0.8;
+			@include prefix((transition: all .2s),webkit);
+		}
+	}
+	&:not(:checked) + label:after {
+		opacity: 0;
+		@include prefix((transform: scale(0)),webkit);
+	}
+	&:checked + label:after {
+		opacity: 1;
+		@include prefix((transform: scale(1)),webkit);
+	}
+}
+
+//deletedphotos의 스위치버튼
+.switch-button {
+	position: relative;
+	margin: 1.5rem 0;
+	width: 100%;
+	height: 40px;
+	border: 1px solid $moderndark;
+	text-align: center;
+	cursor: pointer;
+	@include prefix((transition: all 0.3s ease-in-out),webkit);
+	
+	.active {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 50%;
+		height: 100%;
+		background-color: $moderndark;
+		z-index: -1;
+		@include prefix((transition: all 0.3s ease-in-out),webkit);
+	}
+	.active-case {
+		color: #ffffff;
+	}
+}
+
+.switch-button-case {
+	position: relative;
+	display: inline-block;
+	padding-bottom: 1px;
+	width: 49%;
+	height: 100%;
+	background: none;
+	color: $moderndark;
+	border: none;
+	@include prefix((transition: all 0.3s ease-in-out),webkit);
+	&:focus {
+		outline: none;
+	}	
+}

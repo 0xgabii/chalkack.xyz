@@ -47,7 +47,7 @@ class Cards extends Component{
 				let src = data[i].src;
 				
 				cards[k].push(
-					<div className={data[i].album ? "card album" : "card"}>
+					<div className={data[i].album ? "card card-album" : "card"}>
 						{data[i].album ? 	
 							""
 							: 

@@ -1,0 +1,53 @@
+#landing_section {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	text-align: center;
+	color: black;
+	@include prefix((background : radial-gradient(ellipse at top, #ffffff, #bdc3c7 80%)), webkit);
+}
+
+.center_wrap {
+	@extend %absolute-center;
+	width: 100%;
+	z-index: -1;
+	opacity: 0;
+	@include prefix((
+		transform:translate(-50%, -50%) translateY(30rem),
+		transition:all 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28)
+	),webkit);
+	will-change: transform;
+	&.active {
+		z-index: 1;
+		opacity: 1;
+		@include prefix((transform:translate(-50%, -50%)),webkit);
+	}
+}
+
+.headline {
+	margin-bottom: 2rem;
+	%font {
+		margin: 0;
+		line-height: 3.5rem;
+	}
+	>h1 {
+		@extend %font;
+		font-weight: 400;
+		font-size: 2.5rem;
+	}
+	>h3 {
+		@extend %font;
+		font-weight: 300;
+		font-size: 1.7rem;
+	}
+}
+
+
+
+
+

@@ -1,0 +1,97 @@
+.wrapper {
+	position: relative;
+	height: 80vh;
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding-bottom: 2rem;
+	@include prefix((transition: height 0.25s),webkit);
+}
+
+.cards {
+	margin-bottom: 0.7rem;
+	height: 33.3%;
+	white-space: nowrap;
+	@include prefix((transition: height 0.15s ease-out),webkit);
+}
+
+.card {
+	position: relative;
+	display: inline-block;
+	margin-right: 0.7rem;
+	height: 100%;
+	overflow: hidden;
+	-webkit-transform: translateZ(0);
+	@include prefix((transition: width 0.15s ease-out),webkit);
+	>a {
+		text-decoration: none;
+		color: white;
+	}
+	>img {
+		display: block;
+		width: auto;
+		height: 100%;
+		@include prefix((transition: transform 0.25s),webkit);
+	}
+	&.selected {
+		border: 4px solid #3ba263;
+		box-sizing: border-box;
+		&:before {
+			content: '';
+			position: absolute;
+			z-index: 1;
+			right: 0px;
+			top: 0px;
+			border-top: 4rem solid #3ba263;
+			border-bottom: 4rem solid transparent;
+			border-left: 4rem solid transparent;
+		}
+	}
+	&:hover>.checkbox {
+		opacity: 1;
+		@include prefix((transform: scale(1)),webkit);
+	}
+	&:hover>img {
+		@include prefix((transform: scale(1.25)),webkit);
+	}
+}
+
+//카드 - 앨범Type
+.card-album>img {
+	min-width: 20rem;
+	height: 100%;
+	@include prefix((
+		object-fit: cover,
+		object-position: center
+	),webkit);	
+}
+
+.album {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 0.3rem 0.5rem 0.5rem 0.5rem;
+	overflow: hidden;
+	background-color: rgba(1, 1, 1, 0.6);
+	@include prefix((transition: background-color 0.3s),webkit);
+	&:hover {
+		background-color: rgba(1, 1, 1, 0.75);
+	}
+	>.title {
+		padding: 0.3rem 0;
+		font-size: 1.5rem;
+		display: block;
+	}
+	>.date {
+		float: left;
+		color: rgba(255, 255, 255, 0.9);
+	}
+	>.info {
+		float: right;
+		>i {
+			vertical-align: bottom;
+			font-size: 1rem;
+			margin-right: 0.3rem;
+		}
+	}
+}

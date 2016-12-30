@@ -1,0 +1,37 @@
+#main_section {
+	position: relative;
+	margin-left: 0;
+	padding: 0 1.7rem;
+	height: 100vh;
+	z-index: 1;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	overflow: hidden;
+	&:before {
+		content: '';
+		position: fixed;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		z-index: -1;
+		background-color: rgba(1, 1, 1, 0.65);
+	}
+}
+
+@import "header";
+@import "cards-wrapper";
+
+//카드 컨트롤러 버튼
+@import "cards-controller";
+
+//그리드 switch 버튼
+@import "grid-change";
+
+//모달
+@import "../modal/style";
+@import "../modal/addPhoto";
+@import "../modal/deletedPhotos";
+@import "../modal/image-modal";
+

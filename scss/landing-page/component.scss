@@ -1,0 +1,56 @@
+//Call To Action 버튼
+.cta_btn {
+	margin-top: 2rem;
+	padding: 0.8rem 1.6rem;
+	background-color: #4CAF50;
+	letter-spacing: 0.5px;
+	font-size: 1rem;
+	color: white;
+	border: 0;
+	border-radius: 2px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.1);		
+	@include prefix((transition: background-color 0.3s),webkit);
+	&:hover {
+		background-color: rgba(76, 175, 80, 0.81);
+	}
+}
+
+//왼쪽 상단 로고
+.fixed_logo {
+	position: fixed;
+	left: 1rem;
+	top: 1rem;	
+	@include prefix((transition: all 0.3s),webkit);
+	>i {
+		font-size: 2rem;
+	}
+	&.active {
+		left: 50%;
+		top: 22%;
+		@include prefix((transform: translateX(-50%)),webkit);
+		>i {
+			transform: scale(1.5);
+		}
+	}
+}
+
+// 오른쪽 상단의 login/home 버튼
+.fixed_btn {
+	position: fixed;
+	right: 1rem;
+	top: 1rem;
+	padding: 0.5rem 1.4rem;
+	background-color: transparent;
+	letter-spacing: 0.5px;
+	font-size: 1rem;
+	color: #393939;
+	border: 2px solid gray;
+	border-radius: 2px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.1);
+	@include prefix((transition: all 0.3s),webkit);
+	&:hover {
+		background-color: #4CAF50;
+		color: white;
+		border-color: #4CAF50;
+	}
+}

@@ -1,0 +1,66 @@
+//삭제된 사진 목록
+.deleted_photos {
+	margin: 1rem 0;
+	width: 27rem;
+	min-height: 15rem;
+	max-height: 25rem;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.deleted_photo {
+	position: relative;
+	display: inline-block;
+	margin: 0.3rem;
+	>img {
+		display: block;
+		height: 95px;
+		width: 95px;
+		@include prefix((
+			object-position: center,
+			object-fit: cover
+		),webkit);		
+	}
+	>label {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		&:before {
+			content: '';
+			@extend %absolute-center;
+			width: 3rem;
+			height: 3rem;
+			background-color: #3bb284;
+			border-radius: 100%;
+			@include prefix((
+				transform: translate(-50%, -50%) scale(0),
+				transition: all 0.15s ease-in-out
+			),webkit);
+		}
+		&:after {
+			content: '\2713';
+			@extend %absolute-center;
+			color: white;
+			@include prefix((
+				transform: translate(-50%, -50%) scale(0),
+				transition: all 0.15s ease-in-out
+			),webkit);
+		}
+	}
+	>input {
+		position: absolute;
+		width: 0;
+		height: 0;
+	}
+	>input:checked + label {
+		background-color: rgba(1, 1, 1, 0.5);
+		&:before {
+			@include prefix((transform: translate(-50%, -50%) scale(1)),webkit);
+		}
+		&:after {
+			@include prefix((transform: translate(-50%, -50%) scale(1)),webkit);
+		}
+	}
+}

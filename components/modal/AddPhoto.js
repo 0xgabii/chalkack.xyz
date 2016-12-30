@@ -55,7 +55,7 @@ class AddPhoto extends Component{
 					let percentComplete = evt.loaded / evt.total;
 						$('.progress').css({width: percentComplete * 100 + '%'});
 						if (percentComplete === 1) {
-							$file.addClass('start');
+							$file.addClass('end');
 						}
 					}
 				}, false);

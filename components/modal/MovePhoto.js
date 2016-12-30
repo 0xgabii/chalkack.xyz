@@ -52,7 +52,7 @@ class MovePhoto extends Component{
 				backgroundImage: 'url(' + src + ')'
 			}
 			album.push(
-				<div style={bgImage}>
+				<div className="modal-scroll-content-album" style={bgImage}>
 					<span className="title">{this.props.data[i].album.title}</span>
 					<span className="date">{this.props.data[i].album.date}</span>
 					<span className="info"><i className="material-icons">camera_alt</i>{this.props.data[i].album.info}</span>

@@ -1,0 +1,66 @@
+//그리드 switch 버튼
+.switch {
+	position: relative;
+	margin-right: 0.5rem;
+	padding: 0 1rem;
+	&:before {
+		content: '';
+		position: absolute;
+		left: 0;
+		width: 100%;
+		height: 3rem;
+		z-index: -1;
+		background: #000;
+		border-radius: 30px;
+	}
+	input{
+		display: none;
+	}
+}
+
+.switch_label {
+	display: inline-block;
+	padding: 0.9rem;
+	width: 2rem;	
+	text-align: center;	
+	color: rgba(255, 255, 255, 0.7);
+	cursor: pointer;
+	@include prefix((transition: color 0.2s ease-out),webkit);
+	&:hover {
+		color: white;
+	}
+}
+
+.switch_circle {
+	@extend %absolute-center;
+	width: 3.5rem;
+	height: 3.5rem;
+	background: #486dd1;
+	border-radius: 50%;
+	cursor: pointer;
+	@include prefix((
+		transition: all 0.4s cubic-bezier(0.17, 0.67, 0.14, 1.03),
+		transform: translate(-50%, -50%)
+	),webkit);	
+	>i {
+		@extend %absolute-center;
+		font-size: 40px;
+		@include prefix((transform: translate(-50%, -50%)),webkit);
+	}
+}
+
+#grid_double:checked ~ .switch_circle {
+	background: #5e74af;
+	@include prefix((transform: translate(-50%, -50%) translateX(-4.15rem)),webkit);
+}
+
+#grid_third:checked ~ .switch_circle {
+	background: #486dd1;
+	@include prefix((transform: translate(-50%, -50%) translateX(0rem)),webkit);
+}
+
+#grid_fourth:checked ~ .switch_circle {
+	background: PaleVioletRed;
+	@include prefix((transform: translate(-50%, -50%) translateX(4.15rem)),webkit);
+}
+
