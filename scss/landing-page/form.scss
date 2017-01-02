@@ -30,7 +30,7 @@
 //form
 .slide_form {
 	width: 200%;
-	height: 16rem;
+	height: 17rem;
 	overflow: hidden;
 	@include prefix((transform: translateX(0%)),webkit);	
 	@include prefix((transition: all 0.3s),webkit);
@@ -71,7 +71,7 @@
 		}
 	}
 	&.active {
-		height: 21rem;
+		height: 22.5rem;
 		@include prefix((transform: translateX(-50%)),webkit);
 	}
 }

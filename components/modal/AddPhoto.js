@@ -28,12 +28,13 @@ class AddPhoto extends Component{
 		this.setState({uploading:true,upload_btn:"업로드중......"});
 
 		const $form = $(e.target);			 
-		const $file = $form.find('.btn');
-
+		const $btn = $form.find('.btn');
+		const $file = $form.find('.dropfile');
+		
 		let _this = this;
 
 		const formData = new FormData();
-		$.each($('.dropfile')[0].files, function (i, file) {
+		$.each($file[0].files, function (i, file) {
 			formData.append('photo', file);
 		});			  
 
@@ -55,7 +56,7 @@ class AddPhoto extends Component{
 					let percentComplete = evt.loaded / evt.total;
 						$('.progress').css({width: percentComplete * 100 + '%'});
 						if (percentComplete === 1) {
-							$file.addClass('end');
+							$btn.addClass('end');
 						}
 					}
 				}, false);
@@ -70,12 +71,20 @@ class AddPhoto extends Component{
 		}).done(function(data){
 			Toast(data,"success");
 
-			_this.setState(_this.state);
+			//초기화
+			_this.setState(_this.initialState);
+			$file.val('');
+			
 			_this.props.updateData();
 			_this.props.closeModal();
 
 		}).fail(function(request, status, error){
 			Toast(request.responseText, "alert");
+			
+			// 초기화
+	  		_this.setState(_this.initialState);
+			$file.val('');
+			
 			console.log("http code : " + request.status);
 			console.log("message : " + request.responseText);
 			console.log("error : " + error);
@@ -90,7 +99,6 @@ class AddPhoto extends Component{
 	  let _this = this;//filereader 내부
 	  let total_size = 0;
 
-	  // 초기화
 	  this.setState(this.initialState);
 
 	  if (file.length < 1) {
