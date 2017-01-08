@@ -4,6 +4,12 @@
 
 ![메인페이지](https://s3.ap-northeast-2.amazonaws.com/chalkack/index/wallpaper.png)
 
+### 연관된 글들
+* [Version-Log](Version.md)
+* [REST API 문서](API.md)
+* [이미지 리사이징 이야기](Thumbnail.md)
+* [Toast 컴포넌트](Toast.md)
+
 ## 1. 소개
 횡스크롤형 UI로 사진을 아름답게 관리할 수 있는 웹애플리케이션
 
@@ -69,12 +75,6 @@ React : 추가 버튼 클릭 -> prop으로 부모로 전달 -> 부모 컴포넌�
 물론 React는 추가 버튼을 클릭하기만 하면 그 뒤는 **자동**으로 수행된다.  
 다른 것엔 신경쓰지 않고 **컴포넌트 하나**에만 **집중**할 수 있다는게 엄청난 장점인듯 하다!  
 
-## 4. 문서
-* [Version-Log](Version.md)
-* [REST API 문서](API.md)
-* [이미지 리사이징 이야기](Thumbnail.md)
-* [Toast 컴포넌트](Toast.md)
-
-## 5. 도움
+## 4. 도움
 * [jQuery to React](http://blog.sapzil.org/2014/08/10/jquery-to-react/)
 * [React 강좌 - Velopert](https://velopert.com/reactjs-tutorials)
