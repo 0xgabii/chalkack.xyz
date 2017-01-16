@@ -1,10 +1,15 @@
 import $ from 'jquery';
 
 import React, { Component } from 'react';
+import autoBind from 'react-autobind';
+
 import { Resize, CardsControl_Action, CardsControl_Move, scrollX } from './Sub';
 
 class Cards extends Component{
-
+	constructor(props){
+		super(props);
+		autoBind(this);
+	}
 	componentDidMount(){			
 		$(window).on('resize', Resize);
 		
@@ -48,12 +53,10 @@ class Cards extends Component{
 				
 				cards[k].push(
 					<div className={data[i].album ? "card card-album" : "card"}>
-						{data[i].album ? 	
-							""
-							: 
+						{data[i].album ? ""	: 
 						  <div className="checkbox">
-							<input type="checkbox" className="custom_checkbox" defaultValue={data[i].idx} onChange={this.CardsChecked.bind(this)} /> 
-							<label className="checkbox_control" onClick={this.CardsChecked_label.bind(this)} />
+							<input type="checkbox" className="custom_checkbox" defaultValue={data[i].idx} onChange={this.CardsChecked} /> 
+							<label className="checkbox_control" onClick={this.CardsChecked_label} />
 						  </div>
 						}	
 					  <img src={src} data-idx={data[i].idx} onClick={this.props.showImageModal} />

@@ -1,14 +1,19 @@
 import $ from 'jquery';
 
 import React, { Component } from 'react';
+import autoBind from 'react-autobind';
+
 import { Toast } from '../Sub';
 
 class DeletedPhotos extends Component{
 	constructor(props){
 		super(props);
+		autoBind(this);
+		
 		this.state = {
 			select_all : false
 		};
+		this.initialState = this.state;
 	}
 	select(e){
 	  $(e.target).siblings('input').prop('checked',!$(e.target).siblings('input').prop('checked'));
@@ -21,10 +26,9 @@ class DeletedPhotos extends Component{
 	}
 	recover_File(e){
 
-		const $form = $(e.target).parents('form');	
-		const photo_arr = new Array();
-
 		let _this = this;
+		
+		const photo_arr = [];
 
 		$('.deleted_photo_checkbox').each(function(){
 			if($(this).prop('checked')==true){
@@ -33,8 +37,7 @@ class DeletedPhotos extends Component{
 		});
 
 		if(photo_arr.length===0)
-		  return;
-
+			return;
 		if(confirm(photo_arr.length+"개의 사진을 복원하시겠습니까?")==false)
 			return;
 
@@ -49,22 +52,19 @@ class DeletedPhotos extends Component{
 			_this.props.updateData();
 			_this.props.closeModal();
 
-			_this.setState(_this.state);
+			_this.setState(_this.initialState);
 
 		}).fail(function(request, status, error){
 				Toast(request.responseText, "alert");
-				console.log("http code : " + request.status);
-				console.log("message : " + request.responseText);
-				console.log("error : " + error);
 		});
 
 	}
-	delete_Forever(e){
-		const $form =  $(e.target).parents('form');	
-		const photo_arr = new Array();
+	delete_Forever(e){		
 
 		let _this = this;
-
+		
+		const photo_arr = [];
+		
 		$('.deleted_photo_checkbox').each(function(){
 			if($(this).prop('checked')==true){
 				photo_arr.push($(this).val());			
@@ -73,7 +73,6 @@ class DeletedPhotos extends Component{
 
 		 if(photo_arr.length===0)
 			  return;
-
 		if(confirm(photo_arr.length+"개의 사진을 영구적으로 삭제하시겠습니까?")==false)
 			return;
 
@@ -88,20 +87,17 @@ class DeletedPhotos extends Component{
 				_this.props.updateData();
 				_this.props.closeModal();
 
-				_this.setState(_this.state);
+				_this.setState(_this.initialState);
 			
 		}).fail(function(request, status, error){
 				Toast(request.responseText, "alert");
-				console.log("http code : " + request.status);
-				console.log("message : " + request.responseText);
-				console.log("error : " + error);
 		});
 	}
 	render(){
-		let deleted_photo = [];  
+		let deleted_photos = [];  
 			
 		for(var i=0; i<this.props.data.length; i++){
-			deleted_photo.push(
+			deleted_photos.push(
 				<div className="deleted_photo" onClick={this.select.bind(this)}>
 					<input type="checkbox" className="deleted_photo_checkbox" defaultValue={this.props.data[i].idx} checked={this.state.select_all} />
 					<label />
@@ -116,13 +112,13 @@ class DeletedPhotos extends Component{
 			  <h2 className="modal-header">삭제된 사진들</h2>
 			  <div className="switch-button">
 				<span style={this.state.select_all==true ? {left: '0%'} : {left: '50%'} } className="active" />
-				<button className={this.state.select_all==true ? "switch-button-case left active-case" : "switch-button-case left"} type="button" onClick={this.select_all.bind(this)}>모두 선택</button>
-				<button className={this.state.select_all==true ? "switch-button-case right" : "switch-button-case right active-case"} type="button" onClick={this.select_none.bind(this)}>취소</button>
+				<button className={this.state.select_all==true ? "switch-button-case left active-case" : "switch-button-case left"} type="button" onClick={this.select_all}>모두 선택</button>
+				<button className={this.state.select_all==true ? "switch-button-case right" : "switch-button-case right active-case"} type="button" onClick={this.select_none}>취소</button>
 			  </div>
-				<div className="deleted_photos scroll_y">{deleted_photo}</div>
+				<div className="deleted_photos scroll_y">{deleted_photos}</div>
 			  <div className="modal-footer_button">
-				<button id="delete_forever_btn" className="btn" type="button" onClick={this.delete_Forever.bind(this)}>삭제</button>
-				<button id="recover_file_btn" className="btn" type="button" onClick={this.recover_File.bind(this)}>복원</button>
+				<button id="delete_forever_btn" className="btn" type="button" onClick={this.delete_Forever}>삭제</button>
+				<button id="recover_file_btn" className="btn" type="button" onClick={this.recover_File}>복원</button>
 			  </div>
 			</form>
 		  </div>

@@ -4,13 +4,16 @@ import React, { Component } from 'react';
 import { GetRealImg } from '../Sub';
 
 class ImageModal extends Component{
-	constructor(props){
-		super(props);
+	componentDidMount(){	
+		let _this = this;
+		
+		$(document).on("keydown",this.keydownCheck())
 	}
 	componentDidUpdate(p,s){
 		const $img = $('.image_container').children('img');	  
 
 		$img.removeClass('active');
+		
 		if(this.props.status==true){
 			$img.on('load',function(){
 				setTimeout(function(){
@@ -19,44 +22,27 @@ class ImageModal extends Component{
 			});
 		}
 	}
-	componentDidMount(){	
-		let _this = this;
+	keydownCheck(e){
+		if(this.props.status==false)
+			return;		  
 
-		function keydownCheck(e){
-		  	if(_this.props.status==false)
-				return;		  
-
-			let key = e.keyCode;
-			if(key===37)
-				_this.props.prev();
-			else if(key===39)
-				_this.props.next();
-			else if(key===27)
-				_this.props.close();
-			else if(key===40)
-				_this.downloadImage();  
-			
-			e.preventDefault();
-		}
-		function scrollCheck(e) {
-			if(_this.props.status==false)
-				return;	
-
-			e = window.event || e;
-			let delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-
-			if(delta===1)
-				_this.props.prev();
-			else
-				_this.props.next();
-			
-			e.preventDefault();		
+		switch (e.keyCode) {
+		case 37:
+			this.props.prev();
+			break;
+		case 39:
+			this.props.next();
+			break;
+		case 27:
+			this.props.close();
+			break;
+		case 40:
+			this.props.downloadImage();
+			break;
 		}
 
-		$(document).on("keydown",keydownCheck)
-		$('#image_modal').on("mousewheel",scrollCheck);
-		$('#image_modal').on("mousewheel",scrollCheck);
-	}
+		e.preventDefault();
+	}	
 	downloadImage(){
 		$('#download_image')[0].click();
 	}

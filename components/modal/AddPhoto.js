@@ -1,11 +1,14 @@
 import $ from 'jquery';
 
 import React, { Component } from 'react';
+import autoBind from 'react-autobind';
+
 import { Toast } from '../Sub';
 
 class AddPhoto extends Component{
 	constructor(props){
 		super(props);
+		autoBind(this);
 		this.state = {
 		  data : [],
 		  CanIappend : true, 
@@ -25,26 +28,31 @@ class AddPhoto extends Component{
 			return;
 		}
 
-		this.setState({uploading:true,upload_btn:"업로드중......"});
-
-		const $form = $(e.target);			 
-		const $btn = $form.find('.btn');
-		const $file = $form.find('.dropfile');
+		this.setState({
+			uploading:true,
+			upload_btn:"업로드중..."
+		});
 		
 		let _this = this;
 
-		const formData = new FormData();
+		const $form = $(e.target),
+			  $btn = $form.find('.btn'),
+			  $file = $form.find('.dropfile'),
+			  formData = new FormData();
+		
 		$.each($file[0].files, function (i, file) {
 			formData.append('photo', file);
 		});			  
 
 		//업로드된 파일 가져오기
-		const LoadInterval = setInterval(function(){
+		const LoadInterval = setInterval(() => {
 
 			_this.props.updateData();
 
-			if(_this.state.uploading==false)
+			if(_this.state.uploading==false){
 				clearInterval(LoadInterval);
+			}				
+			
 		},1000);
 
 
@@ -84,29 +92,26 @@ class AddPhoto extends Component{
 			// 초기화
 	  		_this.setState(_this.initialState);
 			$file.val('');
-			
-			console.log("http code : " + request.status);
-			console.log("message : " + request.responseText);
-			console.log("error : " + error);
 		});
 	}
 	handleChange(e){
-	  const $this = $(e.target);
-	  const file = e.target.files;
-	  const file_container = $('.file_container');
-	  const upload_all_btn = $('#add_all_photo');
+		const $this = $(e.target),
+			file = e.target.files,
+			file_container = $('.file_container'),
+			upload_all_btn = $('#add_all_photo');
 		
-	  let _this = this;//filereader 내부
-	  let total_size = 0;
+		//filereader 내부
+	  	let _this = this;
+		let total_size = 0;
 
-	  this.setState(this.initialState);
+	  	this.setState(this.initialState);
 
-	  if (file.length < 1) {
-		return;
-	  }
+	  	if (file.length < 1) {
+			return;
+		}
 
-	  // preview 만들기
-	  for (var i = 0; i < file.length; i++) {
+		// preview 생성
+	  	for (var i = 0; i < file.length; i++) {
 
 		  const extArr = file[i].name.split('.');
 		  let extension = extArr[extArr.length - 1];
@@ -187,12 +192,16 @@ class AddPhoto extends Component{
 		}		
 		return (
 		  <div id="add_photo_Modal" className={this.props.status==true ? 'modal active' : 'modal'}>
-			<form className={this.props.status==true ? 'modal-content active' : 'modal-content'} method="post" encType="multipart/form-data" onSubmit={this.handleSubmit.bind(this)}>
+			<form className={this.props.status==true ? 'modal-content active' : 'modal-content'} method="post" encType="multipart/form-data" onSubmit={this.handleSubmit}>
 			  <span className="modal-close" onClick={this.props.closeModal}><i className="material-icons">close</i></span>
 			  <h2 className="modal-header">새로운 사진</h2>
 			  <div className={this.state.dragDrop==true ? 'dropzone focus' : 'dropzone'}>
-				<input className="dropfile" multiple="multiple" type="file" name="photo" 
-					onChange={this.handleChange.bind(this)}	onDragEnter={this.onDragEnter.bind(this)} onDragLeave={this.onDragLeave.bind(this)} onDrop={this.onDrop.bind(this)} />
+				<input className="dropfile" multiple="multiple" type="file" name="photo" accept="image/*"
+					onChange={this.handleChange}
+					onDragEnter={this.onDragEnter} 
+					onDragLeave={this.onDragLeave} 
+					onDrop={this.onDrop} 
+				/>
 				<div className="dropzone_text">
 				  <i className="material-icons">satellite</i>
 				  <br /> 드래그 &amp; 드롭 또는 클릭

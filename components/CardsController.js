@@ -1,11 +1,15 @@
 import $ from 'jquery';
 
 import React, { Component } from 'react';
+import autoBind from 'react-autobind';
+
 import { CardsControl_Action } from './Sub'; 
 
 class CardsController extends Component{
 	constructor(props){		
 		super(props);
+		autoBind(this);
+		
 		this.state = {
 			buttonClicked:false	
 		};
@@ -81,11 +85,14 @@ class CardsController extends Component{
 			<div className="cards_control">					
 				<div className="cards_control_conntainer">
 					<button id="control_cards_btn" className="material_btn pink" data-number={this.props.selectedCardsNum}
-					onClick={this.toggleBtn.bind(this)} onMouseDown={this.mouseDown.bind(this)} onMouseUp={this.mouseUp.bind(this)} 
-					onMouseMove={this.mouseMove.bind(this)}><i className="custom_icon" /></button>
+						onClick={this.toggleBtn} 
+						onMouseDown={this.mouseDown} 
+						onMouseUp={this.mouseUp} 
+						onMouseMove={this.mouseMove}>
+					<i className="custom_icon" /></button>
 					<div className="control_btn_list">
-					  <button id="select_all_cards" onClick={this.selectAll_on.bind(this)}><i className="material-icons">check_box</i></button>
-					  <button id="select_no_cards" onClick={this.selectAll_off.bind(this)}><i className="material-icons">check_box_outline_blank</i></button>
+					  <button id="select_all_cards" onClick={this.selectAll_on}><i className="material-icons">check_box</i></button>
+					  <button id="select_no_cards" 	onClick={this.selectAll_off}><i className="material-icons">check_box_outline_blank</i></button>
 					  <button id="select_cards_delete" onClick={this.props.open_RemovePhoto}><i className="material-icons">delete_forever</i></button>
 					  <button id="select_cards_move" onClick={this.props.open_MovePhoto}><i className="material-icons">open_in_browser</i></button>
 					</div>

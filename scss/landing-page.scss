@@ -9,22 +9,23 @@
 	z-index: 1;
 	text-align: center;
 	color: black;
-	@include prefix((background: radial-gradient(ellipse at top, #ffffff, #bdc3c7 80%)),webkit);
+	@include prefix((background : radial-gradient(ellipse at top, #ffffff, #bdc3c7 80%)), webkit);
 }
 
-//화면 전환효과 
 .center_wrap {
 	@extend %absolute-center;
 	width: 100%;
 	z-index: -1;
 	opacity: 0;
-	@include prefix((transform:  translate(-50%, -50%) translateY(30rem)),webkit);
-	@include prefix((transition: all 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28)),webkit);
+	@include prefix((
+		transform:translate(-50%, -50%) translateY(30rem),
+		transition:all 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28)
+	),webkit);
 	will-change: transform;
-	&.active {	
-		z-index: 1;	
+	&.active {
+		z-index: 1;
 		opacity: 1;
-		@include prefix((transform:  translate(-50%, -50%)),webkit);
+		@include prefix((transform:translate(-50%, -50%)),webkit);
 	}
 }
 
@@ -47,11 +48,6 @@
 }
 
 
-//사진 슬라이드
-@import "slide";
 
-//로그인,회원가입
-@import "form";
 
-//로고, cta 버튼
-@import "component";
+

@@ -17,9 +17,9 @@ class MovePhoto extends Component{
 	handleSubmit(e){
 		e.preventDefault();
 
-		let _this = this;	  
-		let $arr = $(e.target).find('input').val();			  
-		
+		let _this = this,
+			$arr = $(e.target).find('input').val();
+
 	  	if($arr==''){
 			Toast("사진이 선택되지 않았습니다","alert");
 			return;
@@ -38,18 +38,14 @@ class MovePhoto extends Component{
 			
 		}).fail(function(request, status, error){
 			Toast(request.responseText, "alert");
-			console.log("http code : " + request.status);
-			console.log("message : " + request.responseText);
-			console.log("error : " + error);	
 	  	});
 	}
 	render(){
 		const album = [];
 		
 		for (var i=0; i<this.props.data.length; i++){				
-			let src = this.props.data[i].src;
 			let bgImage = {
-				backgroundImage: 'url(' + src + ')'
+				backgroundImage: 'url(' + this.props.data[i].src + ')'
 			}
 			album.push(
 				<div className="modal-scroll-content-album" style={bgImage}>

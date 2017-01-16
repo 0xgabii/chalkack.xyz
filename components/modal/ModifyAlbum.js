@@ -10,10 +10,9 @@ class ModifyAlbum extends Component{
   	}
 	handleSubmit(e){
 		e.preventDefault();
-
-		const $form = $(e.target);					
-		let albumname = $form.children('input').val();			  			  
-		let _this = this;
+						
+		let _this = this,
+			albumname = $(e.target).children('input').val();			  		 		
 
 		$.ajax({
 			url : '/albums/'+window.location.pathname.split("/")[2]+'?a_name='+albumname,
@@ -28,9 +27,6 @@ class ModifyAlbum extends Component{
 				
 		}).fail(function(request, status, error){
 			Toast(request.responseText, "alert");
-			console.log("http code : " + request.status);
-			console.log("message : " + request.responseText);
-			console.log("error : " + error);
 		});
   	}
 	render(){

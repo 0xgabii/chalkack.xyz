@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 var Prev_Selected_CardsNum = 0;
 
-function CardsControl_Action() {
+const CardsControl_Action = () => {
 	
 	let checked = 0;
 
@@ -67,7 +67,7 @@ function CardsControl_Action() {
 
 
 // controller 버튼 이동
-function CardsControl_Move(e){
+const CardsControl_Move = (e) => {
 	
 	let top = e.pageY - 75;
 	let left = e.pageX + 20;
@@ -97,7 +97,7 @@ function CardsControl_Move(e){
 
 //이미지 모달 관련 함수
 //return 다음 혹은 이전 사진 src 
-function Slider(img,type){
+const Slider = (img,type) => {
 	
 	let cardNum = $('.card').length;
 	
@@ -123,7 +123,7 @@ function Slider(img,type){
 }
 
 //원본이미지
-function GetRealImg(img) {
+const GetRealImg = (img) => {
 	
 	img = img.replace("small-", "");
 	img = img.replace("medium-", "");
@@ -133,7 +133,7 @@ function GetRealImg(img) {
 
 
 // 토스트 메세지
-function Toast(html,state){
+const Toast = (html,state) => {
 	$('<div></div>').addClass('toast ' + state).prependTo($('body')).html(html)
 		.delay(100).queue(function (next) {
 
@@ -153,7 +153,7 @@ function Toast(html,state){
 		});
 
 		next();
-	}).delay(5000).queue(function (next) {
+	}).delay(3500).queue(function (next) {
 		let win_width = $(window).outerWidth();
 		let width = $(this).outerWidth();
 
@@ -172,7 +172,7 @@ function Toast(html,state){
 
 
 // X축 스크롤
-function scrollX(e){
+function scrollX(e) {
 
 	$.extend($.easing, {
 		easeOutQuint: function(x, t, b, c, d) {
@@ -192,7 +192,7 @@ function scrollX(e){
 }
 
 
-function Resize(){
+const Resize = () => {
 	setTimeout(function() {
 		$('.card').each(function() {
 			let width = $(this).find('img').width();

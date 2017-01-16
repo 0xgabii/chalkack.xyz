@@ -1,15 +1,19 @@
 import $ from 'jquery';
 
 import React, { Component } from 'react';
+import autoBind from 'react-autobind';
 
 class Header extends Component{
-
+	constructor(props){
+		super(props);
+		autoBind(this);
+	}
 	gridChange(e){
 		let grid = $(e.target).data('grid');
 		this.props.gridChange(grid);  
   	}	
   	logOut(){
-		window.location.href="/logout";
+		location.href="/logout";
   	}
 	render(){
 		return (
@@ -29,11 +33,11 @@ class Header extends Component{
 				<li>
 				  <div className="switch">
 					<input name="switch" id="grid_double" type="radio" />
-					<label htmlFor="grid_double" className="switch_label" data-grid={2} onClick={this.gridChange.bind(this)}>크게</label>
+					<label htmlFor="grid_double" className="switch_label" data-grid={2} onClick={this.gridChange}>크게</label>
 					<input name="switch" id="grid_third" type="radio" />
-					<label htmlFor="grid_third" className="switch_label" data-grid={3} onClick={this.gridChange.bind(this)}>중간</label>
+					<label htmlFor="grid_third" className="switch_label" data-grid={3} onClick={this.gridChange}>중간</label>
 					<input name="switch" id="grid_fourth" type="radio" />
-					<label htmlFor="grid_fourth" className="switch_label" data-grid={4} onClick={this.gridChange.bind(this)}>작게</label>
+					<label htmlFor="grid_fourth" className="switch_label" data-grid={4} onClick={this.gridChange}>작게</label>
 					<div className="switch_circle"><i className="material-icons">view_module</i></div>
 				  </div>
 				</li>					
@@ -50,7 +54,7 @@ class Header extends Component{
 				  <button id="add_photo_btn" onClick={this.props.show_addPhoto}><i className="material-icons">add_a_photo</i></button>
 				</li>
 				<li>
-				  <button id="logout_btn" onClick={this.logOut.bind(this)}><i className="material-icons">power_settings_new</i></button>
+				  <button id="logout_btn" onClick={this.logOut}><i className="material-icons">power_settings_new</i></button>
 				</li>
 			  </ul>
 			</nav>

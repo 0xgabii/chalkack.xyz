@@ -8,8 +8,8 @@ class RemovePhoto extends Component{
 	handleSubmit(e){
 	  	e.preventDefault();
 
-	  	let _this = this;	  
-	  	let $arr = $(e.target).find('input').val();			  
+	  	let _this = this,
+			$arr = $(e.target).find('input').val();		  	
 
 	  	if($arr==''){
 		 	Toast("사진이 선택되지 않았습니다","alert");
@@ -27,9 +27,6 @@ class RemovePhoto extends Component{
 			_this.props.updateData();
 		}).fail(function(request, status, error){
 			Toast(request.responseText, "alert");
-			console.log("http code : " + request.status);
-			console.log("message : " + request.responseText);
-			console.log("error : " + error);
 	 	});	
   	}
 	render(){
