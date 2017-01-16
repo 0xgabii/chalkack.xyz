@@ -99,7 +99,7 @@ class Main_Page extends Component{
 				text = "외 "+(arr.length-1)+"개 사진 이동";
 			}			
 			else{
-				text = "사진 삭제";
+				text = "사진 이동";
 			}		
 
 			_this.setState({

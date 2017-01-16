@@ -9,11 +9,11 @@
 	background-color: #f0f0f0;
 	border: 2px dashed #bfbfbf;
 	border-radius: 0.3rem;
-	@include prefix((transition: all 0.3s),webkit);	
+	transition: all 0.3s;	
 	&.focus {
 		background-color: #d2f8d2;
 		border: 2px dashed #5e74af;
-		@include prefix((transform: scale(1.5)),webkit);		
+		transform: scale(1.5);		
 	}
 	&:hover {
 		background-color: #d2f8d2;
@@ -27,7 +27,7 @@
 	color: #7c7c7c;
 	font-weight: 400;
 	text-align: center;
-	@include prefix((transform: translate(-50%, -50%)),webkit);
+	transform: translate(-50%, -50%);
 	>i {
 		font-size: 3rem;
 	}
@@ -50,7 +50,7 @@
 
 //filereader로 생성된 목록
 .file_container {
-	max-height: 200px;
+	max-height: 250px;
 	color: #393939;
 	font-weight: 300;
 	margin-top: 0.5rem;
@@ -58,10 +58,8 @@
 }
 
 .file_item {
-	@include prefix((
-		display: flex,
-		align-items: center		
-	),webkit);
+	display: flex;
+	align-items: center;
 	margin: 0 0 0.3rem 0;
 	padding: 0.5rem;
 	background-color: #f2f2f2;		
@@ -88,7 +86,7 @@
 	z-index: -1;
 	background-color: #8BC34A;
 	border-radius: 0.3rem;
-	@include prefix((transition: width 0.5s),webkit);
+	transition: width 0.5s;
 }
 
 //data image

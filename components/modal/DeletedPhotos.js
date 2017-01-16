@@ -98,7 +98,7 @@ class DeletedPhotos extends Component{
 			
 		for(var i=0; i<this.props.data.length; i++){
 			deleted_photos.push(
-				<div className="deleted_photo" onClick={this.select.bind(this)}>
+				<div key={i} className="deleted_photo" onClick={this.select.bind(this)}>
 					<input type="checkbox" className="deleted_photo_checkbox" defaultValue={this.props.data[i].idx} checked={this.state.select_all} />
 					<label />
 					<img src={this.props.data[i].src} />

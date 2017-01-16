@@ -8,15 +8,6 @@ body {
 	overflow: hidden; 
 }
 
-@mixin prefix($declarations, $prefixes: ()) {
-  @each $property, $value in $declarations {
-    @each $prefix in $prefixes {
-      #{'-' + $prefix + '-' + $property}: $value;
-    }
-    #{$property}: $value;
-  }
-}
-
 %absolute-center{
 	position: absolute;
 	top: 50%;

@@ -52,7 +52,7 @@ class Cards extends Component{
 				let src = data[i].src;
 				
 				cards[k].push(
-					<div className={data[i].album ? "card card-album" : "card"}>
+					<div key={i} className={data[i].album ? "card card-album" : "card"}>
 						{data[i].album ? ""	: 
 						  <div className="checkbox">
 							<input type="checkbox" className="custom_checkbox" defaultValue={data[i].idx} onChange={this.CardsChecked} /> 
@@ -79,7 +79,7 @@ class Cards extends Component{
 		}												
 		for(var i=0; i<this.props.grid; i++){
 			list.push(
-				<div className="cards" style={{height:100/this.props.grid+'%'}}>{cards[i]}</div> 
+				<div key={i} className="cards" style={{height:100/this.props.grid+'%'}}>{cards[i]}</div> 
 			);			
 		}
 		return (

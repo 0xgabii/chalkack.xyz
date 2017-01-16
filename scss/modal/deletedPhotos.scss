@@ -16,10 +16,8 @@
 		display: block;
 		height: 95px;
 		width: 95px;
-		@include prefix((
-			object-position: center,
-			object-fit: cover
-		),webkit);		
+		object-position: center;
+		object-fit: cover;	
 	}
 	>label {
 		position: absolute;
@@ -34,19 +32,15 @@
 			height: 3rem;
 			background-color: #3bb284;
 			border-radius: 100%;
-			@include prefix((
-				transform: translate(-50%, -50%) scale(0),
-				transition: all 0.15s ease-in-out
-			),webkit);
+				transform: translate(-50%, -50%) scale(0);
+				transition: all 0.15s ease-in-out;
 		}
 		&:after {
 			content: '\2713';
 			@extend %absolute-center;
 			color: white;
-			@include prefix((
-				transform: translate(-50%, -50%) scale(0),
-				transition: all 0.15s ease-in-out
-			),webkit);
+				transform: translate(-50%, -50%) scale(0);
+				transition: all 0.15s ease-in-out;
 		}
 	}
 	>input {
@@ -57,10 +51,10 @@
 	>input:checked + label {
 		background-color: rgba(1, 1, 1, 0.5);
 		&:before {
-			@include prefix((transform: translate(-50%, -50%) scale(1)),webkit);
+			transform: translate(-50%, -50%) scale(1);
 		}
 		&:after {
-			@include prefix((transform: translate(-50%, -50%) scale(1)),webkit);
+			transform: translate(-50%, -50%) scale(1);
 		}
 	}
 }

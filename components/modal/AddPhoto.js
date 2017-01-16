@@ -183,7 +183,7 @@ class AddPhoto extends Component{
 			
 		for(var i=0; i<this.state.data.length; i++){
 			files.push(
-				<div className="file_item">
+				<div key={i} className="file_item">
 					<img src={this.state.data[i].src} className="file_preview" />
 					<div className="file_name">{this.state.data[i].name}</div>
 					<span className="btn">{this.state.data[i].size}<label className="progress"></label></span>

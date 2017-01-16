@@ -4,14 +4,14 @@
 	overflow-x: auto;
 	overflow-y: hidden;
 	padding-bottom: 2rem;
-	@include prefix((transition: height 0.25s),webkit);
+	transition: height 0.25s;
 }
 
 .cards {
 	margin-bottom: 0.7rem;
 	height: 33.3%;
 	white-space: nowrap;
-	@include prefix((transition: height 0.15s ease-out),webkit);
+	transition: height 0.15s ease-out;
 }
 
 .card {
@@ -21,7 +21,7 @@
 	height: 100%;
 	overflow: hidden;
 	-webkit-transform: translateZ(0);
-	@include prefix((transition: width 0.15s ease-out),webkit);
+	transition: width 0.15s ease-out;
 	>a {
 		text-decoration: none;
 		color: white;
@@ -30,7 +30,7 @@
 		display: block;
 		width: auto;
 		height: 100%;
-		@include prefix((transition: transform 0.25s),webkit);
+		transition: transform 0.25s;
 	}
 	&.selected {
 		border: 4px solid #3ba263;
@@ -48,10 +48,10 @@
 	}
 	&:hover>.checkbox {
 		opacity: 1;
-		@include prefix((transform: scale(1)),webkit);
+		transform: scale(1);
 	}
 	&:hover>img {
-		@include prefix((transform: scale(1.25)),webkit);
+		transform: scale(1.25);
 	}
 }
 
@@ -59,10 +59,8 @@
 .card-album>img {
 	min-width: 20rem;
 	height: 100%;
-	@include prefix((
-		object-fit: cover,
-		object-position: center
-	),webkit);	
+	object-fit: cover;
+	object-position: center;
 }
 
 .album {
@@ -73,7 +71,7 @@
 	padding: 0.3rem 0.5rem 0.5rem 0.5rem;
 	overflow: hidden;
 	background-color: rgba(1, 1, 1, 0.6);
-	@include prefix((transition: background-color 0.3s),webkit);
+	transition: background-color 0.3s;
 	&:hover {
 		background-color: rgba(1, 1, 1, 0.75);
 	}

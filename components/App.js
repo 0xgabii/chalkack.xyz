@@ -55,7 +55,6 @@ class App extends Component {
 		if(bool){
 			this.goToHome();
 		}			
-		console.log("??");
 	}
 	//다른 앨범으로 이동할 때
 	move(e){

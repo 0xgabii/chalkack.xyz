@@ -11,13 +11,13 @@
 	border-radius: 0.2rem;
 	box-sizing: border-box;
 	box-shadow: 0 13px 20px rgba(0, 0, 0, 0.30), 0 12px 12px rgba(0, 0, 0, 0.22);
-	@include prefix((transition:all 0.3s),webkit);
+	transition:all 0.3s;
 	>ul {
 		@extend %reset-ul;
 		width: 100%;
 		overflow: hidden;
-		@include prefix((transition:transform 0.3s),webkit);
-		@include prefix((transform:translateY(0%)),webkit);
+		transform:translateY(0%);
+		transition:transform 0.3s;		
 		will-change: transform;
 		>li>img {
 			display: block;
@@ -29,10 +29,10 @@
 //사진 슬라이드
 .frame_control {
 	@extend %absolute-center;
-	@include prefix((transform:translate(-50%, -50%)),webkit);
+	transform:translate(-50%, -50%);
 	>ul {
 		@extend %reset-ul;
-		@include prefix((display:flex),webkit);
+		display:flex;
 		>li {
 			width: 44rem;
 		}
@@ -45,7 +45,7 @@
 	font-size: 5rem;
 	color: white;
 	text-shadow: 0 10px 10px rgba(0, 0, 0, .5);
-	@include prefix((transition:transform 0.3s),webkit);
+	transition:transform 0.3s;
 }
 
 #left {
@@ -53,7 +53,7 @@
 	>i {
 		@extend %arrow-icon;
 		&:hover {
-			@include prefix((transform:translateX(-10px)),webkit);
+			transform:translateX(-10px);
 		}
 	}
 }
@@ -63,7 +63,7 @@
 	>i {
 		@extend %arrow-icon;
 		&:hover {
-			@include prefix((transform:translateX(10px)),webkit);
+			transform:translateX(10px);
 		}
 	}
 }

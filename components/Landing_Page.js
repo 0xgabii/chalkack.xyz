@@ -96,7 +96,6 @@ class Landing_Page extends Component{
 				
 		}).fail(function(request, status, error){
 			Toast(request.responseText, "alert");
-			console.log(error);
 		});	
   	}
 	render(){

@@ -9,7 +9,7 @@
 	z-index: 1;
 	text-align: center;
 	color: black;
-	@include prefix((background : radial-gradient(ellipse at top, #ffffff, #bdc3c7 80%)), webkit);
+	background: radial-gradient(ellipse at top, #ffffff, #bdc3c7 80%;
 }
 
 .center_wrap {
@@ -17,15 +17,13 @@
 	width: 100%;
 	z-index: -1;
 	opacity: 0;
-	@include prefix((
-		transform:translate(-50%, -50%) translateY(30rem),
-		transition:all 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28)
-	),webkit);
+	transform: translate(-50%, -50%) translateY(30rem);
+	transition: all 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 	will-change: transform;
 	&.active {
 		z-index: 1;
 		opacity: 1;
-		@include prefix((transform:translate(-50%, -50%)),webkit);
+		transform: translate(-50%, -50%);
 	}
 }
 
@@ -46,8 +44,3 @@
 		font-size: 1.7rem;
 	}
 }
-
-
-
-
-

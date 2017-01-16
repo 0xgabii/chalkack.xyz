@@ -26,7 +26,7 @@
 	text-align: center;	
 	color: rgba(255, 255, 255, 0.7);
 	cursor: pointer;
-	@include prefix((transition: color 0.2s ease-out),webkit);
+	transition: color 0.2s ease-out;
 	&:hover {
 		color: white;
 	}
@@ -39,29 +39,27 @@
 	background: #486dd1;
 	border-radius: 50%;
 	cursor: pointer;
-	@include prefix((
-		transition: all 0.4s cubic-bezier(0.17, 0.67, 0.14, 1.03),
-		transform: translate(-50%, -50%)
-	),webkit);	
+		transition: all 0.4s cubic-bezier(0.17, 0.67, 0.14, 1.03);
+		transform: translate(-50%, -50%);
 	>i {
 		@extend %absolute-center;
 		font-size: 40px;
-		@include prefix((transform: translate(-50%, -50%)),webkit);
+		transform: translate(-50%, -50%);
 	}
 }
 
 #grid_double:checked ~ .switch_circle {
 	background: #5e74af;
-	@include prefix((transform: translate(-50%, -50%) translateX(-4.15rem)),webkit);
+	transform: translate(-50%, -50%) translateX(-4.15rem);
 }
 
 #grid_third:checked ~ .switch_circle {
 	background: #486dd1;
-	@include prefix((transform: translate(-50%, -50%) translateX(0rem)),webkit);
+	transform: translate(-50%, -50%) translateX(0rem);
 }
 
 #grid_fourth:checked ~ .switch_circle {
 	background: PaleVioletRed;
-	@include prefix((transform: translate(-50%, -50%) translateX(4.15rem)),webkit);
+	transform: translate(-50%, -50%) translateX(4.15rem);
 }
 

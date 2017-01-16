@@ -8,7 +8,7 @@
 	opacity: 0;
 	z-index: -1;
 	background-color: rgba(1, 1, 1, 0.8);
-	@include prefix((transition: all 0.15s),webkit);
+	transition: all 0.15s;
 	&.active {
 		opacity: 1;
 		z-index: 101;
@@ -21,21 +21,21 @@
 	left: 0;
 	right: 0;
 	text-align: center;
-	>ul {		
+	ul {		
 		display: inline-block;
 		margin: 0;
 		padding: 0;
 		list-style: none;
-		>li {
+		li {
 			display: inline-block;
-			>button {		
+			button {		
 				padding: 0.7rem 0.7rem 0.5rem 0.7rem;
 				background-color: rgba(1, 1, 1, 0.7);				
 				color: white;
 				border: none;				
 				cursor: pointer;
-				@include prefix((transition: all 0.15s),webkit);
-				>i {
+				transition: all 0.15s;
+				i {
 					font-size: 2rem;
 				}
 				&:hover {
@@ -55,13 +55,11 @@
 		max-height: 100vh;
 		border: 0;
 		opacity: 0;
-		@include prefix((
-			transform: scale(0.75),
-			transition: all 0.5s ease-in-out
-		),webkit);			
+		transform: scale(0.75);
+		transition: all 0.5s ease-in-out;
 		&.active {
 			opacity: 1;
-			@include prefix((transform: scale(1)),webkit);
+			transform: scale(1);
 		}
 	}
 	>a {

@@ -20,7 +20,7 @@
 	margin: 0;
 	padding: 1rem;
 	float: left;
-	@include prefix((box-sizing: border-box),webkit);
+	box-sizing: border-box;
 	>li{
 		display: inline-block;
 	}
@@ -73,7 +73,7 @@
 		>i {
 			@extend %absolute-center;
 			font-size: 2.5rem;
-			@include prefix((transform:translate(-50%, -50%)),webkit);
+			transform:translate(-50%, -50%);
 		}
 	}
 }
