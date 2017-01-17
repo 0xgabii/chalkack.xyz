@@ -29,6 +29,7 @@
 개선된 점
 - scss의 mixin으로 제작한 vendor prefix를 bracket의 autoprefix 플러그인으로 대체함
 - es6 완벽하게 적용(내 기준으로 ㅎㅎ) 및 코드 최적화 작업
+- 신기능 준비중 (나만의 액자? 만들기) - [codepen링크](https://codepen.io/gomonk/pen/oBjggB)
 
 개선해야될 점
 - 항상 엔터 후 탭을 치다보니 코드 가독성이 나만보기 편하게 되버렸다...
