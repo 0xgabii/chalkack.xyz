@@ -123,28 +123,30 @@ class AddPhoto extends Component{
 			return;
 		  }else{
 			  const reader = new FileReader();
-			  let idx = 0;
-			  reader.readAsDataURL(file[i]);				  
-			  reader.onload = function () {
 
-				let size = '';
+			  reader.onload = (function(file) {
+				return function(e) {
 
-				if (file[idx].size / 1024 < 1024) {
-					size = Math.round(file[idx].size / 1024) + 'KB';
-				} else {
-					size = file[idx].size / 1024;
-					size = Math.round(size / 1024) + 'MB';
-				}
+					let size = '';
 
-				const dataMap = new Object();					  
-				dataMap.src = this.result;
-				dataMap.name = file[idx].name;
-				dataMap.size = size;
+					if (file.size / 1024 < 1024) {
+						size = Math.round(file.size / 1024) + 'KB';
+					} else {
+						size = file.size / 1024;
+						size = Math.round(size / 1024) + 'MB';
+					}
 
-				_this.setState({data : _this.state.data.concat(dataMap)});
+					const dataMap = {};					  
+					dataMap.src = this.result;
+					dataMap.name = file.name;
+					dataMap.size = size;				  				
 
-				idx += 1;
-			  }
+					_this.setState({data : _this.state.data.concat(dataMap)});
+				};
+			  })(file[i]);
+			  
+			  reader.readAsDataURL(file[i]);
+			  
 			  total_size += file[i].size;  
 		  }
 	  }
