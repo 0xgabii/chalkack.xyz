@@ -5,7 +5,7 @@
 ![메인페이지](https://s3.ap-northeast-2.amazonaws.com/chalkack/index/wallpaper.png)
 
 ### 연관된 글들
-* [Version-Log](Version.md)
+* [ChangeLog](ChangeLog.md)
 * [REST API 문서](API.md)
 * [이미지 리사이징 이야기](Thumbnail.md)
 * [Toast 컴포넌트](Toast.md)
