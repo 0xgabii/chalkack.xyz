@@ -1,4 +1,4 @@
-# Version LOG - Chalkack.xyz
+# ChangeLog.md - Chalkack.xyz
 
 ## v1.0.0
 **2016.12.26**
