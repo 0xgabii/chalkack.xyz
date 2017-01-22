@@ -52,6 +52,7 @@
 	* [Spring](https://github.com/spring-projects/spring-framework)
 	* [Jackson](https://github.com/FasterXML/jackson) - JSON 
 	* [thumbnailator](https://github.com/coobird/thumbnailator) - 이미지 리사이징 처리
+	* BCrypt 
 	
 * 아마존 웹 서비스 (AWS) 
     * EC2
