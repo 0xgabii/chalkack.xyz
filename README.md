@@ -2,7 +2,7 @@
 
 
 
-![메인페이지](https://s3.ap-northeast-2.amazonaws.com/chalkack/index/wallpaper.pn)
+![메인페이지](https://s3.ap-northeast-2.amazonaws.com/chalkack/index/wallpaper.png)
 
 ### 연관된 글들
 * [ChangeLog](ChangeLog.md)
