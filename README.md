@@ -1,6 +1,4 @@
-# [나만의 갤러리 "찰칵"](http://chalkack.xyz)
-
-
+# 나만의 갤러리 "찰칵" - [http://chalkack.xyz/](http://chalkack.xyz/)
 
 ![메인페이지](https://s3.ap-northeast-2.amazonaws.com/chalkack/index/wallpaper.png)
 
