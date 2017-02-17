@@ -1,7 +1,8 @@
 import $ from 'jquery';
 
 import React, { Component } from 'react';
-import { Toast } from '../Sub';
+import siiimpleToast from 'siiimple-toast';
+import { ajax } from '../Sub';
 
 class ModifyAlbum extends Component {
 
@@ -11,22 +12,16 @@ class ModifyAlbum extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    let _this = this,
-      albumname = $(e.target).children('input').val();
+    let albumname = $(e.target).children('input').val();
 
-    $.ajax({
+    ajax({
       url: '/albums/' + window.location.pathname.split("/")[2] + '?a_name=' + albumname,
-      type: 'PUT',
-      contentType: "application/x-www-form-urlencoded; charset=utf-8",
-      dataType: "text",
-    }).done(function (data) {
-      Toast(data);
-
-      _this.props.updateData();
-      _this.props.closeModal();
-
-    }).fail(function (request, status, error) {
-      Toast(request.responseText, "alert");
+      method: 'PUT',
+      _callback: (response) => {
+        new siiimpleToast().message(response);
+        this.props.updateData();
+        this.props.closeModal();
+      }
     });
   }
   render() {

@@ -5,9 +5,7 @@ import { GetRealImg } from '../Sub';
 
 class ImageModal extends Component {
   componentDidMount() {
-    let _this = this;
-
-    $(document).on("keydown", this.keydownCheck())
+    $(document).on("keydown", this.keydownCheck());
   }
   componentDidUpdate(p, s) {
     const $img = $('.image_container').children('img');

@@ -4,15 +4,14 @@ import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 
 import Landing_Page from './Landing_Page';
-import PictureFrame_Page from './PictureFrame_Page';
 import Main_Page from './Main_Page';
-import { Toast } from './Sub';
+import { ajax } from './Sub';
+import siiimpleToast from 'siiimple-toast';
 
 class App extends Component {
   constructor(props) {
     super(props);
     autoBind(this);
-
     this.state = {
       auth: true,
       CardsData: [],
@@ -23,27 +22,20 @@ class App extends Component {
       albums: 0,
       type: "main"
     }
+    this.toast = new siiimpleToast();
   }
   componentDidMount() {
-
-    let _this = this;
-
-    $.ajax({
+    ajax({
       url: '/auth',
-      type: 'GET',
-    }).done(function () {
-      _this.setState({ auth: true });
-
-      let loc = window.location.pathname;
-
-      if (loc == "/") {
-        window.history.replaceState(null, null, '/home');
+      _callback: () => {
+        this.setState({ auth: true });
+        if (window.location.pathname == "/")
+          window.history.replaceState(null, null, '/home');
+        this.updateData();
+      },
+      _failCallback: () => {
+        this.setState({ auth: false });
       }
-
-      _this.updateData();
-
-    }).fail(function (request, status, error) {
-      _this.setState({ auth: false });
     });
   }
   gridChange(grid) {
@@ -71,8 +63,7 @@ class App extends Component {
   }
   updateData(link, grid) {
 
-    let _this = this,
-      gridType = this.state.CardsGrid,
+    let gridType = this.state.CardsGrid,
       url = '',
       loc = window.location.pathname.split("/");
 
@@ -80,45 +71,37 @@ class App extends Component {
       gridType = grid;
     }
 
-    if (loc.length > 2) {
-      url = loc[1] + loc[2] + encodeURIComponent(loc[3]);
-    } else {
-      url = window.location.pathname;
-    }
+    url = loc.length > 2 ? loc[1] + loc[2] + encodeURIComponent(loc[3]) : window.location.pathname;
 
-    $.ajax({
+    ajax({
       url: url + "?gridType=" + gridType,
-      type: 'GET',
-      contentType: "application/x-www-form-urlencoded; charset=utf-8",
       dataType: "json",
-    }).done(function (data) {
-      data = JSON.parse(JSON.stringify(data));
+      _callback: (response) => {
+        response = JSON.parse(JSON.stringify(response));
 
-      if (loc[1] == "home") {
-        _this.setState({
-          CardsData: data.data,
-          bgImage: data.album.a_cover,
-          title: data.album.title,
-          photos: data.album.p_number,
-          albums: data.album.a_number,
-          type: "main"
-        });
+        if (loc[1] == "home") {
+          this.setState({
+            CardsData: response.data,
+            bgImage: response.album.a_cover,
+            title: response.album.title,
+            photos: response.album.p_number,
+            albums: response.album.a_number,
+            type: "main"
+          });
 
-        document.title = data.album.title;
-      } else {
-        _this.setState({
-          CardsData: data.data,
-          bgImage: data.album.a_cover,
-          title: data.album.title,
-          photos: data.album.info,
-          type: "none"
-        });
+          document.title = response.album.title;
+        } else {
+          this.setState({
+            CardsData: response.data,
+            bgImage: response.album.a_cover,
+            title: response.album.title,
+            photos: response.album.info,
+            type: "none"
+          });
 
-        document.title = data.album.title;
+          document.title = response.album.title;
+        }
       }
-
-    }).fail(function (request, status, error) {
-      Toast(request.responseText, "alert");
     });
   }
   render() {
@@ -142,12 +125,12 @@ class App extends Component {
             gridChange={this.gridChange}
             updateData={this.updateData}
             data={this.state.CardsData}
-            />
+          />
           :
           <Landing_Page
             auth={this.auth}
             goToHome={this.goToHome}
-            />
+          />
         }
       </div>
     );

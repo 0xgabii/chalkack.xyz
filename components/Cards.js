@@ -30,13 +30,12 @@ class Cards extends Component {
   }
   CardsChecked() {
     let checked = CardsControl_Action();
-
     this.props.CardsCheckedChange(checked);
   }
   render() {
-    let list = [];
-    let cards = [];
-    let data = [];
+    let list = [],
+      cards = [],
+      data = [];
 
     for (var k = 0; k < this.props.grid; k++) {
       cards[k] = [];

@@ -1,31 +1,25 @@
 import $ from 'jquery';
 
 import React, { Component } from 'react';
-
-import { Toast } from '../Sub';
+import { ajax } from '../Sub';
+import siiimpleToast from 'siiimple-toast';
 
 class CreateAlbum extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
 
-    let _this = this,
-      albumname = $(e.target).children('input').val();
+    let albumname = $(e.target).children('input').val();
 
-    $.ajax({
+    ajax({
       url: '/albums',
-      type: 'POST',
+      method: 'POST',
       data: { a_name: albumname },
-      contentType: "application/x-www-form-urlencoded; charset=utf-8",
-      dataType: "text",
-    }).done(function (data) {
-      Toast(data, "success");
-
-      _this.props.updateData();
-      _this.props.closeModal();
-
-    }).fail(function (request, status, error) {
-      Toast(request.responseText, "alert");
+      _callback: (response) => {
+        new siiimpleToast().success(response);
+        this.props.updateData();
+        this.props.closeModal();
+      }
     });
   }
   render() {

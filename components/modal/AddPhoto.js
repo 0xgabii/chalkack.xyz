@@ -2,8 +2,7 @@ import $ from 'jquery';
 
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
-
-import { Toast } from '../Sub';
+import siiimpleToast from 'siiimple-toast';
 
 class AddPhoto extends Component {
   constructor(props) {
@@ -16,15 +15,15 @@ class AddPhoto extends Component {
       upload_btn: "추가",
       uploading: false//업로드중인지
     };
-
     this.initialState = this.state;
+    this.toast = new siiimpleToast();
   }
   handleSubmit(e) {
     e.preventDefault();
 
     //업로드중인 경우
     if (this.state.uploading == true) {
-      Toast("현재 사진을 업로드하고 있습니다<br>조금만 더 기다려주세요");
+      this.toast.message("현재 사진을 업로드하고 있습니다<br>조금만 더 기다려주세요");
       return;
     }
 
@@ -33,28 +32,22 @@ class AddPhoto extends Component {
       upload_btn: "업로드중..."
     });
 
-    let _this = this;
-
     const $form = $(e.target),
       $btn = $form.find('.btn'),
       $file = $form.find('.dropfile'),
       formData = new FormData();
 
-    $.each($file[0].files, function (i, file) {
+    $.each($file[0].files, (i, file) => {
       formData.append('photo', file);
     });
 
     //업로드된 파일 가져오기
     const LoadInterval = setInterval(() => {
-
-      _this.props.updateData();
-
-      if (_this.state.uploading == false) {
+      this.props.updateData();
+      if (this.state.uploading == false) {
         clearInterval(LoadInterval);
       }
-
     }, 1000);
-
 
     $.ajax({
       xhr: function () {
@@ -76,21 +69,21 @@ class AddPhoto extends Component {
       processData: false,
       contentType: false,
       dataType: "text",
-    }).done(function (data) {
-      Toast(data, "success");
+    }).done((data) => {
+      this.toast.success(data);
 
       //초기화
-      _this.setState(_this.initialState);
+      this.setState(this.initialState);
       $file.val('');
 
-      _this.props.updateData();
-      _this.props.closeModal();
+      this.props.updateData();
+      this.props.closeModal();
 
-    }).fail(function (request, status, error) {
-      Toast(request.responseText, "alert");
+    }).fail((request, status, error) => {
+      this.toast.alert(request.responseText);
 
       // 초기화
-      _this.setState(_this.initialState);
+      this.setState(this.initialState);
       $file.val('');
     });
   }
@@ -100,9 +93,8 @@ class AddPhoto extends Component {
       file_container = $('.file_container'),
       upload_all_btn = $('#add_all_photo');
 
-    //filereader 내부
-    let _this = this;
-    let total_size = 0;
+    let total_size = 0,
+      _this = this;
 
     this.setState(this.initialState);
 
@@ -117,7 +109,7 @@ class AddPhoto extends Component {
       let extension = extArr[extArr.length - 1];
 
       if (extension != "jpg" && extension != "jpeg" && extension != "gif" && extension != "png") {
-        Toast("이미지 파일만 업로드 가능합니다", "alert");
+        this.toast.alert("이미지 파일만 업로드 가능합니다");
         $this.val('');
         this.setState({ CanIappend: false });
         return;
@@ -160,7 +152,7 @@ class AddPhoto extends Component {
     } else {
       //100메가가 넘으면
       if (total_size / 1024 > 100) {
-        Toast("이미지 용량이 너무 큽니다", "alert");
+        this.toast.alert("이미지 용량이 너무 큽니다");
         $this.val('');
         this.setState({ CanIappend: false });
         return;
@@ -203,7 +195,7 @@ class AddPhoto extends Component {
               onDragEnter={this.onDragEnter}
               onDragLeave={this.onDragLeave}
               onDrop={this.onDrop}
-              />
+            />
             <div className="dropzone_text">
               <i className="material-icons">satellite</i>
               <br /> 드래그 &amp; 드롭 또는 클릭

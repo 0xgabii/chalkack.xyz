@@ -2,18 +2,18 @@ import $ from 'jquery';
 
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
-
-import { Toast } from '../Sub';
+import siiimpleToast from 'siiimple-toast';
+import { ajax } from '../Sub';
 
 class DeletedPhotos extends Component {
   constructor(props) {
     super(props);
     autoBind(this);
-
     this.state = {
       select_all: false
     };
     this.initialState = this.state;
+    this.toast = new siiimpleToast();
   }
   select(e) {
     $(e.target).siblings('input').prop('checked', !$(e.target).siblings('input').prop('checked'));
@@ -25,9 +25,6 @@ class DeletedPhotos extends Component {
     this.setState({ select_all: false });
   }
   recover_File(e) {
-
-    let _this = this;
-
     const photo_arr = [];
 
     $('.deleted_photo_checkbox').each(function () {
@@ -41,28 +38,20 @@ class DeletedPhotos extends Component {
     if (confirm(photo_arr.length + "개의 사진을 복원하시겠습니까?") == false)
       return;
 
-    $.ajax({
+    ajax({
       url: '/deleted-photos/' + photo_arr.toString(),
-      type: 'PUT',
-      contentType: "application/x-www-form-urlencoded;charset=UTF-8",
-      dataType: "text",
-    }).done(function (data) {
-      Toast(data);
+      method: 'PUT',
+      _callback: (response) => {
+        this.toast.message(response);
 
-      _this.props.updateData();
-      _this.props.closeModal();
+        this.props.updateData();
+        this.props.closeModal();
 
-      _this.setState(_this.initialState);
-
-    }).fail(function (request, status, error) {
-      Toast(request.responseText, "alert");
+        this.setState(this.initialState);
+      }
     });
-
   }
   delete_Forever(e) {
-
-    let _this = this;
-
     const photo_arr = [];
 
     $('.deleted_photo_checkbox').each(function () {
@@ -76,21 +65,17 @@ class DeletedPhotos extends Component {
     if (confirm(photo_arr.length + "개의 사진을 영구적으로 삭제하시겠습니까?") == false)
       return;
 
-    $.ajax({
+    ajax({
       url: '/deleted-photos/' + photo_arr.toString(),
-      type: 'DELETE',
-      contentType: "application/x-www-form-urlencoded;charset=UTF-8",
-      dataType: "text",
-    }).done(function (data) {
-      Toast(data);
+      method: 'DELETE',
+      _callback: (response) => {
+        this.toast.message(response);
 
-      _this.props.updateData();
-      _this.props.closeModal();
+        this.props.updateData();
+        this.props.closeModal();
 
-      _this.setState(_this.initialState);
-
-    }).fail(function (request, status, error) {
-      Toast(request.responseText, "alert");
+        this.setState(this.initialState);
+      }
     });
   }
   render() {

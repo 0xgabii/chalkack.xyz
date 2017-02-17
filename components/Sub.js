@@ -1,5 +1,7 @@
 import $ from 'jquery';
 
+import siiimpleToast from 'siiimple-toast';
+
 var Prev_Selected_CardsNum = 0;
 
 const CardsControl_Action = () => {
@@ -131,46 +133,6 @@ const GetRealImg = (img) => {
   return img;
 }
 
-
-// 토스트 메세지
-const Toast = (html, state) => {
-  $('<div></div>').addClass('toast ' + state).prependTo($('body')).html(html)
-    .delay(100).queue(function (next) {
-
-      $(this).css({
-        'opacity': 1,
-        'transform': 'translateX(-50%) scale(1)'
-      });
-
-      let stackMargin = 15;
-      $('.toast').each(function () {
-
-        let height = $(this).outerHeight();
-        let topMargin = 15;
-        $(this).css('top', stackMargin + 'px');
-
-        stackMargin += height + topMargin;
-      });
-
-      next();
-    }).delay(3500).queue(function (next) {
-      let win_width = $(window).outerWidth();
-      let width = $(this).outerWidth();
-
-      $(this).css({
-        'opacity': 0,
-        'left': (win_width / 2) + width + 'px'
-      });
-
-      next();
-    }).delay(500).queue(function (next) {
-      $(this).remove();
-      next();
-    });
-}
-
-
-
 // X축 스크롤
 function scrollX(e) {
 
@@ -186,7 +148,7 @@ function scrollX(e) {
 
   $('.wrapper').stop().animate({
     scrollLeft: $(this).scrollLeft() - (delta * 450)
-  }, 1000, 'easeOutQuint', function () {});
+  }, 1000, 'easeOutQuint', function () { });
 
   e.preventDefault();
 }
@@ -209,4 +171,27 @@ const Resize = () => {
   $('.wrapper').height($(this).height() - $('#header').outerHeight() - 55);
 }
 
-export { Resize, Toast, CardsControl_Action, CardsControl_Move, scrollX, GetRealImg, Slider }
+const ajax = ({
+  url,
+  method = 'GET',
+  data = {},
+  dataType = 'text',
+  contentType = 'application/x-www-form-urlencoded; charset=utf-8',
+  _callback,
+  _failCallback = (request) => {
+    new siiimpleToast().alert(request.responseText);
+  }
+}) => {
+  $.ajax({
+    url: url,
+    type: method,
+    data: data,
+    dataType: dataType,
+    contentType: contentType,
+  })
+    .done(_callback)
+    .fail(_failCallback);
+}
+
+
+export { Resize, CardsControl_Action, CardsControl_Move, scrollX, GetRealImg, Slider, ajax }

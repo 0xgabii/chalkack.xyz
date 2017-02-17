@@ -22,7 +22,9 @@ import DeletedPhotos from './modal/DeletedPhotos';
 //이미지 원본 모달
 import ImageModal from './modal/ImageModal';
 
-import { Toast, CardsControl_Action, Slider } from './Sub';
+import { CardsControl_Action, Slider, ajax } from './Sub';
+
+import siiimpleToast from 'siiimple-toast';
 
 class Main_Page extends Component {
   constructor(props) {
@@ -52,6 +54,7 @@ class Main_Page extends Component {
 
       selectedCardsNum: 0
     };
+    this.toast = new siiimpleToast();
   }
   updateData() {
     const $chkbox = $('.custom_checkbox');
@@ -75,8 +78,7 @@ class Main_Page extends Component {
     this.setState({ selectedCardsNum: num });
   }
   open_MovePhoto() {
-    let _this = this,
-      src = '',
+    let src = '',
       arr = [],
       text = '';
 
@@ -87,34 +89,22 @@ class Main_Page extends Component {
       }
     });
 
-    $.ajax({
+    ajax({
       url: '/albums',
-      type: 'GET',
-      contentType: "application/x-www-form-urlencoded; charset=utf-8",
       dataType: "json",
-    }).done(function (data) {
-      data = JSON.parse(JSON.stringify(data));
+      _callback: (response) => {
+        response = JSON.parse(JSON.stringify(response));
 
-      if (arr.length > 1) {
-        text = "외 " + (arr.length - 1) + "개 사진 이동";
+        text = arr.length > 1 ? "외 " + (arr.length - 1) + "개 사진 이동" : "사진 이동";
+
+        this.setState({
+          MovePhoto_Data: response,
+          MovePhoto_Input: arr.toString(),
+          MovePhoto_Img: src,
+          MovePhoto_Text: text,
+          MovePhoto: true
+        });
       }
-      else {
-        text = "사진 이동";
-      }
-
-      _this.setState({
-        MovePhoto_Data: data,
-        MovePhoto_Input: arr.toString(),
-        MovePhoto_Img: src,
-        MovePhoto_Text: text,
-        MovePhoto: true
-      });
-
-    }).fail(function (request, status, error) {
-      Toast(request.responseText, "alert");
-      console.log("http code : " + request.status);
-      console.log("message : " + request.responseText);
-      console.log("error : " + error);
     });
   }
   open_RemovePhoto() {
@@ -172,24 +162,17 @@ class Main_Page extends Component {
     this.setState({ AddPhoto: true });
   }
   show_deletedPhotos() {
-
-    let _this = this;
-
-    $.ajax({
+    ajax({
       url: '/deleted-photos',
-      type: 'GET',
-      contentType: "application/x-www-form-urlencoded;charset=UTF-8",
       dataType: "json",
-    }).done(function (data) {
-      data = JSON.parse(JSON.stringify(data));
+      _callback: (response) => {
+        response = JSON.parse(JSON.stringify(response));
 
-      _this.setState({
-        DeletedPhotos: true,
-        DeletedPhotos_Data: data
-      });
-
-    }).fail(function (request, status, error) {
-      Toast(request.responseText, "alert");
+        this.setState({
+          DeletedPhotos: true,
+          DeletedPhotos_Data: response
+        });
+      }
     });
   }
   closeModal(e) {
@@ -233,7 +216,7 @@ class Main_Page extends Component {
           show_createAlbum={this.show_createAlbum}
           show_modifyAlbum={this.show_modifyAlbum}
           show_addPhoto={this.show_addPhoto}
-          />
+        />
 
         <Cards
           data={this.props.data}
@@ -241,7 +224,7 @@ class Main_Page extends Component {
           move={this.props.move}
           CardsCheckedChange={this.CardsCheckedChange}
           showImageModal={this.showImageModal}
-          />
+        />
 
         <CardsController
           selectAll_on={this.selectAll_on}
@@ -249,7 +232,7 @@ class Main_Page extends Component {
           selectedCardsNum={this.state.selectedCardsNum}
           open_MovePhoto={this.open_MovePhoto}
           open_RemovePhoto={this.open_RemovePhoto}
-          />
+        />
 
         <RemovePhoto
           status={this.state.RemovePhoto}
@@ -258,7 +241,7 @@ class Main_Page extends Component {
           input={this.state.RemovePhoto_Input}
           updateData={this.updateData}
           closeModal={this.closeModal}
-          />
+        />
 
         <MovePhoto
           status={this.state.MovePhoto}
@@ -268,33 +251,33 @@ class Main_Page extends Component {
           text={this.state.MovePhoto_Text}
           updateData={this.updateData}
           closeModal={this.closeModal}
-          />
+        />
 
         <CreateAlbum
           status={this.state.CreateAlbum}
           updateData={this.updateData}
           closeModal={this.closeModal}
-          />
+        />
 
         <ModifyAlbum
           status={this.state.ModifyAlbum}
           currentAlbumName={this.props.title}
           updateData={this.updateData}
           closeModal={this.closeModal}
-          />
+        />
 
         <AddPhoto
           status={this.state.AddPhoto}
           updateData={this.updateData}
           closeModal={this.closeModal}
-          />
+        />
 
         <DeletedPhotos
           status={this.state.DeletedPhotos}
           data={this.state.DeletedPhotos_Data}
           updateData={this.updateData}
           closeModal={this.closeModal}
-          />
+        />
 
         <ImageModal
           status={this.state.ImageModal}
@@ -302,7 +285,7 @@ class Main_Page extends Component {
           next={this.next}
           prev={this.prev}
           close={this.closeModal}
-          />
+        />
       </section>
     );
   }

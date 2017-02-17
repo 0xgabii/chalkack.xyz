@@ -2,20 +2,20 @@ import $ from 'jquery';
 
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
-
-import { Toast } from './Sub';
+import { ajax } from './Sub';
+import siiimpleToast from 'siiimple-toast';
 
 class Landing_Page extends Component {
   constructor(props) {
     super(props);
     autoBind(this);
-
     this.state = {
       ctaClicked: false,
       slide_form: false,
       frame: 0
     };
     this.initialState = this.state;
+    this.toast = new siiimpleToast();
   }
   slide_form() {
     this.setState({
@@ -62,40 +62,27 @@ class Landing_Page extends Component {
   handleSubmit_Account(e) {
     e.preventDefault();
 
-    let _this = this;
-
-    $.ajax({
+    ajax({
       url: '/register',
-      type: 'POST',
+      method: 'POST',
       data: $(e.target).serialize(),
-      contentType: "application/x-www-form-urlencoded; charset=utf-8",
-      dataType: "text",
-    }).done(function (data) {
-      Toast(data, "success");
-
-      _this.setState({ slide_form: false });
-
-    }).fail(function (request, status, error) {
-      Toast(request.responseText, "alert");
+      _callback: (response) => {
+        this.toast.success(response);
+        this.setState({ slide_form: false });
+      }
     });
   }
   handleSubmit_Login(e) {
     e.preventDefault();
 
-    let _this = this;
-
-    $.ajax({
+    ajax({
       url: '/login',
-      type: 'POST',
+      method: 'POST',
       data: $(e.target).serialize(),
-      contentType: "application/x-www-form-urlencoded; charset=utf-8",
-    }).done(function (data) {
-      Toast(data, "success");
-
-      _this.props.auth(true);
-
-    }).fail(function (request, status, error) {
-      Toast(request.responseText, "alert");
+      _callback: (response) => {
+        this.toast.success(response);
+        this.props.auth(true);
+      }
     });
   }
   render() {

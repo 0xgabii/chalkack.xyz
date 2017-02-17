@@ -1,7 +1,8 @@
 import $ from 'jquery';
 
 import React, { Component } from 'react';
-import { Toast } from '../Sub';
+import siiimpleToast from 'siiimple-toast';
+import { ajax } from '../Sub';
 
 class MovePhoto extends Component {
   constructor(props) {
@@ -17,27 +18,22 @@ class MovePhoto extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    let _this = this,
-      $arr = $(e.target).find('input').val();
+    let $arr = $(e.target).find('input').val();
 
     if ($arr == '') {
       Toast("사진이 선택되지 않았습니다", "alert");
       return;
     }
 
-    $.ajax({
+    ajax({
       url: '/photos/' + $arr + '?a_idx=' + this.state.selected_album,
-      type: 'PUT',
-      contentType: "application/x-www-form-urlencoded;charset=UTF-8",
-      dataType: "text",
-    }).done(function (data) {
-      Toast(data);
+      method: 'PUT',
+      _callback: (response) => {
+        new siiimpleToast().message(response);
 
-      _this.props.closeModal();
-      _this.props.updateData();
-
-    }).fail(function (request, status, error) {
-      Toast(request.responseText, "alert");
+        this.props.closeModal();
+        this.props.updateData();
+      }
     });
   }
   render() {
@@ -48,7 +44,7 @@ class MovePhoto extends Component {
         backgroundImage: 'url(' + this.props.data[i].src + ')'
       }
       album.push(
-        <div className="modal-scroll-content-album" style={bgImage}>
+        <div key={i} className="modal-scroll-content-album" style={bgImage}>
           <span className="title">{this.props.data[i].album.title}</span>
           <span className="date">{this.props.data[i].album.date}</span>
           <span className="info"><i className="material-icons">camera_alt</i>{this.props.data[i].album.info}</span>
