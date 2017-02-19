@@ -2,11 +2,11 @@ import $ from 'jquery';
 
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
-
-import Landing_Page from './Landing_Page';
-import Main_Page from './Main_Page';
-import { ajax } from './Sub';
 import siiimpleToast from 'siiimple-toast';
+
+import LandingPage from './LandingPage/index';
+import MainPage from './MainPage';
+import { ajax } from './Sub';
 
 class App extends Component {
   constructor(props) {
@@ -16,12 +16,12 @@ class App extends Component {
       auth: true,
       CardsData: [],
       CardsGrid: 3,
-      bgImage: "",
-      title: "",
+      bgImage: '',
+      title: '',
       photos: 0,
       albums: 0,
-      type: "main"
-    }
+      type: 'main',
+    };
     this.toast = new siiimpleToast();
   }
   componentDidMount() {
@@ -29,13 +29,16 @@ class App extends Component {
       url: '/auth',
       _callback: () => {
         this.setState({ auth: true });
-        if (window.location.pathname == "/")
+
+        if (window.location.pathname === '/') {
           window.history.replaceState(null, null, '/home');
+        }
+
         this.updateData();
       },
       _failCallback: () => {
         this.setState({ auth: false });
-      }
+      },
     });
   }
   gridChange(grid) {
@@ -48,24 +51,23 @@ class App extends Component {
       this.goToHome();
     }
   }
-  //다른 앨범으로 이동할 때
+  // 다른 앨범으로 이동할 때
   move(e) {
     e.preventDefault();
 
-    let link = $(e.target).parents('a').attr('href');
+    const link = $(e.target).parents('a').attr('href');
     window.history.replaceState(null, null, link);
     this.updateData();
   }
-  //홈으로 이동 
+  // 홈으로 이동
   goToHome() {
     window.history.replaceState(null, null, '/home');
     this.updateData();
   }
   updateData(link, grid) {
-
-    let gridType = this.state.CardsGrid,
-      url = '',
-      loc = window.location.pathname.split("/");
+    let gridType = this.state.CardsGrid;
+    let url = '';
+    const loc = window.location.pathname.split('/');
 
     if (grid) {
       gridType = grid;
@@ -74,46 +76,43 @@ class App extends Component {
     url = loc.length > 2 ? loc[1] + loc[2] + encodeURIComponent(loc[3]) : window.location.pathname;
 
     ajax({
-      url: url + "?gridType=" + gridType,
-      dataType: "json",
+      url: `${url}?gridType=${gridType}`,
+      dataType: 'json',
       _callback: (response) => {
-        response = JSON.parse(JSON.stringify(response));
+        const responseData = JSON.parse(JSON.stringify(response));
 
-        if (loc[1] == "home") {
+        if (loc[1] === 'home') {
           this.setState({
-            CardsData: response.data,
-            bgImage: response.album.a_cover,
-            title: response.album.title,
-            photos: response.album.p_number,
-            albums: response.album.a_number,
-            type: "main"
+            CardsData: responseData.data,
+            bgImage: responseData.album.a_cover,
+            title: responseData.album.title,
+            photos: responseData.album.p_number,
+            albums: responseData.album.a_number,
+            type: 'main',
           });
-
-          document.title = response.album.title;
+          document.title = responseData.album.title;
         } else {
           this.setState({
-            CardsData: response.data,
-            bgImage: response.album.a_cover,
-            title: response.album.title,
-            photos: response.album.info,
-            type: "none"
+            CardsData: responseData.data,
+            bgImage: responseData.album.a_cover,
+            title: responseData.album.title,
+            photos: responseData.album.info,
+            type: 'none',
           });
-
           document.title = response.album.title;
         }
-      }
+      },
     });
   }
   render() {
-
-    let bgStyle = {
-      backgroundImage: 'url(' + this.state.bgImage + ')'
+    const bgStyle = {
+      backgroundImage: `url(${this.state.bgImage})`,
     };
 
     return (
       <div>
-        {this.state.auth == true ?
-          <Main_Page
+        {this.state.auth === true ?
+          <MainPage
             title={this.state.title}
             photos={this.state.photos}
             albums={this.state.albums}
@@ -127,7 +126,7 @@ class App extends Component {
             data={this.state.CardsData}
           />
           :
-          <Landing_Page
+          <LandingPage
             auth={this.auth}
             goToHome={this.goToHome}
           />
@@ -136,7 +135,4 @@ class App extends Component {
     );
   }
 }
-
-
-
 export default App;

@@ -2,31 +2,30 @@ import $ from 'jquery';
 
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
+import siiimpleToast from 'siiimple-toast';
 
-import Header from './Header';
+import Header from './Header/index';
 import Cards from './Cards';
 import CardsController from './CardsController';
 
-//사진
+// 사진
 import MovePhoto from './modal/MovePhoto';
 import RemovePhoto from './modal/RemovePhoto';
 import AddPhoto from './modal/AddPhoto';
 
-//앨범
+// 앨범
 import CreateAlbum from './modal/CreateAlbum';
 import ModifyAlbum from './modal/ModifyAlbum';
 
-//삭제된 파일
+// 삭제된 파일
 import DeletedPhotos from './modal/DeletedPhotos';
 
-//이미지 원본 모달
+// 이미지 원본 모달
 import ImageModal from './modal/ImageModal';
 
-import { CardsControl_Action, Slider, ajax } from './Sub';
+import { CardsControlAction, Slider, ajax } from './Sub';
 
-import siiimpleToast from 'siiimple-toast';
-
-class Main_Page extends Component {
+class MainPage extends Component {
   constructor(props) {
     super(props);
     autoBind(this);
@@ -37,53 +36,52 @@ class Main_Page extends Component {
 
       MovePhoto: false,
       MovePhoto_Data: [],
-      MovePhoto_Input: "",
-      MovePhoto_Img: "",
-      MovePhoto_Text: "",
+      MovePhoto_Input: '',
+      MovePhoto_Img: '',
+      MovePhoto_Text: '',
 
       RemovePhoto: false,
-      RemovePhoto_Input: "",
-      RemovePhoto_Img: "",
-      RemovePhoto_Text: "",
+      RemovePhoto_Input: '',
+      RemovePhoto_Img: '',
+      RemovePhoto_Text: '',
 
       ImageModal: false,
-      ImageModal_src: "",
+      ImageModal_src: '',
 
       DeletedPhotos: false,
       DeletedPhotos_Data: [],
 
-      selectedCardsNum: 0
+      selectedCardsNum: 0,
     };
     this.toast = new siiimpleToast();
   }
   updateData() {
     const $chkbox = $('.custom_checkbox');
-    $chkbox.prop("checked", false);
+    $chkbox.prop('checked', false);
     $chkbox.parents('.card').removeClass('selected');
     $chkbox.parents('.checkbox').removeClass('active');
 
-    let checked = CardsControl_Action();
-
+    const checked = CardsControlAction();
     this.CardsCheckedChange(checked);
 
     this.props.updateData();
   }
-  selectAll_on(num) {
+  selectAllOn(num) {
     this.setState({ selectedCardsNum: num });
   }
-  selectAll_off(num) {
+  selectAllOff(num) {
     this.setState({ selectedCardsNum: num });
   }
   CardsCheckedChange(num) {
     this.setState({ selectedCardsNum: num });
   }
-  open_MovePhoto() {
-    let src = '',
-      arr = [],
-      text = '';
+  openMovePhoto() {
+    let src = '';
+    let text = '';
+    const arr = [];
 
     $('.custom_checkbox').each(function () {
-      if ($(this).prop('checked') == true) {
+      if ($(this).prop('checked') === true) {
         arr.push($(this).val());
         src = $(this).parents('.card').find('img').attr('src');
       }
@@ -91,115 +89,104 @@ class Main_Page extends Component {
 
     ajax({
       url: '/albums',
-      dataType: "json",
+      dataType: 'json',
       _callback: (response) => {
-        response = JSON.parse(JSON.stringify(response));
+        const responseData = JSON.parse(JSON.stringify(response));
 
-        text = arr.length > 1 ? "외 " + (arr.length - 1) + "개 사진 이동" : "사진 이동";
+        text = arr.length > 1 ? `외 ${arr.length - 1}개 사진 이동` : '사진 이동';
 
         this.setState({
-          MovePhoto_Data: response,
+          MovePhoto_Data: responseData,
           MovePhoto_Input: arr.toString(),
           MovePhoto_Img: src,
           MovePhoto_Text: text,
-          MovePhoto: true
+          MovePhoto: true,
         });
-      }
+      },
     });
   }
-  open_RemovePhoto() {
-    let src = '',
-      arr = [],
-      text = '';
+  openRemovePhoto() {
+    let src = '';
+    let text = '';
+    const arr = [];
 
     $('.custom_checkbox').each(function () {
-      if ($(this).prop('checked') == true) {
+      if ($(this).prop('checked') === true) {
         arr.push($(this).val());
         src = $(this).parents('.card').find('img').attr('src');
       }
     });
 
-    if (arr.length > 1) {
-      text = "외 " + (arr.length - 1) + "개 사진 삭제";
-    }
-    else {
-      text = "사진 삭제";
-    }
+    text = arr.length > 1 ? `외 ${arr.length - 1}개 사진 삭제` : '사진 삭제';
 
     this.setState({
       RemovePhoto_Input: arr.toString(),
       RemovePhoto_Img: src,
       RemovePhoto_Text: text,
-      RemovePhoto: true
+      RemovePhoto: true,
     });
   }
-  //이미지modal
+  // 이미지modal
   next() {
-    let src = Slider(this.state.ImageModal_src, "next");
-
+    const src = Slider(this.state.ImageModal_src, 'next');
     this.setState({ ImageModal_src: src });
   }
   prev() {
-    let src = Slider(this.state.ImageModal_src, "prev");
-
+    const src = Slider(this.state.ImageModal_src, 'prev');
     this.setState({ ImageModal_src: src });
   }
   showImageModal(e) {
-    let src = $(e.target).attr('src');
+    const src = $(e.target).attr('src');
 
     this.setState({
       ImageModal: true,
-      ImageModal_src: src
+      ImageModal_src: src,
     });
   }
-  show_createAlbum() {
+  showCreateAlbum() {
     this.setState({ CreateAlbum: true });
   }
-  show_modifyAlbum() {
+  showModifyAlbum() {
     this.setState({ ModifyAlbum: true });
   }
-  show_addPhoto() {
+  showAddPhoto() {
     this.setState({ AddPhoto: true });
   }
-  show_deletedPhotos() {
+  showDeletedPhotos() {
     ajax({
       url: '/deleted-photos',
-      dataType: "json",
+      dataType: 'json',
       _callback: (response) => {
-        response = JSON.parse(JSON.stringify(response));
+        const responseData = JSON.parse(JSON.stringify(response));
 
         this.setState({
           DeletedPhotos: true,
-          DeletedPhotos_Data: response
+          DeletedPhotos_Data: responseData,
         });
-      }
+      },
     });
   }
   closeModal(e) {
-    if (e)
+    if (e) {
       e.preventDefault();
-
+    }
     this.setState({
       CreateAlbum: false,
       ModifyAlbum: false,
       AddPhoto: false,
-
       MovePhoto: false,
       MovePhoto_Data: [],
-      MovePhoto_Input: "",
-      MovePhoto_Img: "",
-      MovePhoto_Text: "",
-
+      MovePhoto_Input: '',
+      MovePhoto_Img: '',
+      MovePhoto_Text: '',
       RemovePhoto: false,
-      RemovePhoto_Input: "",
-      RemovePhoto_Img: "",
-      RemovePhoto_Text: "",
-
+      RemovePhoto_Input: '',
+      RemovePhoto_Img: '',
+      RemovePhoto_Text: '',
       ImageModal: false,
-      ImageModal_src: "",
-
+      ImageModal_src: '',
       DeletedPhotos: false,
-      DeletedPhotos_Data: []
+      DeletedPhotos_Data: [],
     });
   }
   render() {
@@ -212,10 +199,10 @@ class Main_Page extends Component {
           type={this.props.type}
           gridChange={this.props.gridChange}
           goToHome={this.props.goToHome}
-          show_deletedPhotos={this.show_deletedPhotos}
-          show_createAlbum={this.show_createAlbum}
-          show_modifyAlbum={this.show_modifyAlbum}
-          show_addPhoto={this.show_addPhoto}
+          showDeletedPhotos={this.showDeletedPhotos}
+          showCreateAlbum={this.showCreateAlbum}
+          showModifyAlbum={this.showModifyAlbum}
+          showAddPhoto={this.showAddPhoto}
         />
 
         <Cards
@@ -227,11 +214,11 @@ class Main_Page extends Component {
         />
 
         <CardsController
-          selectAll_on={this.selectAll_on}
-          selectAll_off={this.selectAll_off}
+          selectAllOn={this.selectAllOn}
+          selectAllOff={this.selectAllOff}
           selectedCardsNum={this.state.selectedCardsNum}
-          open_MovePhoto={this.open_MovePhoto}
-          open_RemovePhoto={this.open_RemovePhoto}
+          openMovePhoto={this.openMovePhoto}
+          openRemovePhoto={this.openRemovePhoto}
         />
 
         <RemovePhoto
@@ -290,5 +277,4 @@ class Main_Page extends Component {
     );
   }
 }
-
-export default Main_Page;
+export default MainPage;

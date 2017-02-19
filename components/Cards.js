@@ -3,7 +3,7 @@ import $ from 'jquery';
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 
-import { Resize, CardsControl_Action, CardsControl_Move, scrollX } from './Sub';
+import { Resize, CardsControlAction, CardsControlMove, scrollX } from './Sub';
 
 class Cards extends Component {
   constructor(props) {
@@ -13,31 +13,31 @@ class Cards extends Component {
   componentDidMount() {
     $(window).on('resize', Resize);
 
-    setInterval(function () {
+    setInterval(() => {
       $(window).trigger('resize');
     }, 1000);
 
     // IE9, Chrome, Safari, Opera
-    $('.wrapper').on("mousewheel", scrollX);
+    $('.wrapper').on('mousewheel', scrollX);
     // Firefox
-    $('.wrapper').on("DOMMouseScroll", scrollX);
+    $('.wrapper').on('DOMMouseScroll', scrollX);
   }
   componentDidUpdate() {
     $(window).trigger('resize');
   }
-  CardsChecked_label(e) {
-    CardsControl_Move(e);
+  CardsCheckedLabel(e) {
+    CardsControlMove(e);
   }
   CardsChecked() {
-    let checked = CardsControl_Action();
+    const checked = CardsControlAction();
     this.props.CardsCheckedChange(checked);
   }
   render() {
-    let list = [],
-      cards = [],
-      data = [];
+    const list = [];
+    const cards = [];
+    let data = [];
 
-    for (var k = 0; k < this.props.grid; k++) {
+    for (let k = 0; k < this.props.grid; k += 1) {
       cards[k] = [];
       data = this.props.data[k];
       let length = 0;
@@ -45,22 +45,33 @@ class Cards extends Component {
         length = data.list.length;
         data = data.list;
       }
-
-      for (var i = 0; i < length; i++) {
-
-        let src = data[i].src;
-
+      for (let i = 0; i < length; i += 1) {
+        const src = data[i].src;
         cards[k].push(
-          <div key={i} className={data[i].album ? "card card-album" : "card"}>
-            {data[i].album ? "" :
+          <div key={i} className={data[i].album ? 'card card-album' : 'card'}>
+            {data[i].album ?
+              '' :
               <div className="checkbox">
-                <input type="checkbox" className="custom_checkbox" defaultValue={data[i].idx} onChange={this.CardsChecked} />
-                <label className="checkbox_control" onClick={this.CardsChecked_label} />
+                <input
+                  className="custom_checkbox"
+                  type="checkbox"
+                  defaultValue={data[i].idx}
+                  onChange={this.CardsChecked}
+                />
+                <label
+                  className="checkbox_control"
+                  onClick={this.CardsCheckedLabel}
+                />
               </div>
             }
-            <img src={src} data-idx={data[i].idx} onClick={this.props.showImageModal} />
-            {data[i].album
-              ? <a href={"/albums/" + data[i].album.idx + "/" + data[i].album.title} onClick={this.props.move}>
+            <img
+              src={src}
+              data-idx={data[i].idx}
+              onClick={this.props.showImageModal}
+              alt="cardImage"
+            />
+            {data[i].album ?
+              <a href={`/albums/${data[i].album.idx}/${data[i].album.title}`} onClick={this.props.move}>
                 <div className="album">
                   <span className="title">{data[i].album.title}</span>
                   <span className="date">{data[i].album.date}</span>
@@ -70,15 +81,15 @@ class Cards extends Component {
                   </span>
                 </div>
               </a>
-              : ""
+              : ''
             }
-          </div>
+          </div>,
         );
       }
     }
-    for (var i = 0; i < this.props.grid; i++) {
+    for (let i = 0; i < this.props.grid; i += 1) {
       list.push(
-        <div key={i} className="cards" style={{ height: 100 / this.props.grid + '%' }}>{cards[i]}</div>
+        <div key={i} className="cards" style={{ height: `${100 / this.props.grid}%` }}>{cards[i]}</div>,
       );
     }
     return (
@@ -88,6 +99,4 @@ class Cards extends Component {
     );
   }
 }
-
-
 export default Cards;

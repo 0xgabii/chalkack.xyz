@@ -1,10 +1,11 @@
+/* eslint-disable */
 import $ from 'jquery';
 
 import siiimpleToast from 'siiimple-toast';
 
 var Prev_Selected_CardsNum = 0;
 
-const CardsControl_Action = () => {
+const CardsControlAction = () => {
 
   let checked = 0;
 
@@ -69,7 +70,7 @@ const CardsControl_Action = () => {
 
 
 // controller 버튼 이동
-const CardsControl_Move = (e) => {
+const CardsControlMove = (e) => {
 
   let top = e.pageY - 75;
   let left = e.pageX + 20;
@@ -194,4 +195,4 @@ const ajax = ({
 }
 
 
-export { Resize, CardsControl_Action, CardsControl_Move, scrollX, GetRealImg, Slider, ajax }
+export { Resize, CardsControlAction, CardsControlMove, scrollX, GetRealImg, Slider, ajax }
