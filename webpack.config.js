@@ -1,3 +1,4 @@
+/* eslint-disable */
 module.exports = {
     entry: './public/index.js',
  
